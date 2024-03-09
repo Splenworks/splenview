@@ -1,7 +1,11 @@
 import React, { useState } from "react"
 import { twJoin } from "tailwind-merge"
 
-const DragDropArea: React.FC = () => {
+interface DragDropAreaProps {
+  setDroppedFiles: React.Dispatch<React.SetStateAction<File[]>>
+}
+
+const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
   const [dragging, setDragging] = useState(false)
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
@@ -21,7 +25,8 @@ const DragDropArea: React.FC = () => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragging(false)
-    // Handle the dropped item here
+    const files = Array.from(e.dataTransfer.files)
+    setDroppedFiles(files)
   }
 
   return (
