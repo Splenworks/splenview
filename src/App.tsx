@@ -1,15 +1,7 @@
-import { useState } from 'react'
+import DragDropArea from "./DragDropArea"
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <h1>Hello, world!</h1>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-      <p>Count: {count}</p>
-    </>
-  )
+  return <DragDropArea />
 }
 
 export default App
