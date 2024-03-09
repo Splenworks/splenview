@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { twJoin } from "tailwind-merge"
-import { sortFiles } from "./utils/sortFiles"
+import { getImageFiles } from "./utils/sortFiles"
 
 interface DragDropAreaProps {
   setDroppedFiles: React.Dispatch<React.SetStateAction<File[]>>
@@ -27,7 +27,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
     e.preventDefault()
     setDragging(false)
     const files = Array.from(e.dataTransfer.files)
-    setDroppedFiles(sortFiles(files))
+    setDroppedFiles(getImageFiles(files))
   }
 
   return (

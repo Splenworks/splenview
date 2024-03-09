@@ -1,3 +1,5 @@
-export const sortFiles = (files: File[]): File[] => {
-  return files.sort((a, b) => a.name.localeCompare(b.name))
+export const getImageFiles = (files: File[]): File[] => {
+  return files
+    .filter((file) => file.type.startsWith("image/"))
+    .sort((a, b) => a.name.localeCompare(b.name))
 }
