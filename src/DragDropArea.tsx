@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { twJoin } from "tailwind-merge"
 import { getImageFiles } from "./utils/sortFiles"
 
@@ -8,6 +8,7 @@ interface DragDropAreaProps {
 
 const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
   const [dragging, setDragging] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -30,19 +31,36 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
     setDroppedFiles(getImageFiles(files))
   }
 
+  const handleClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    setDroppedFiles(getImageFiles(files))
+  }
+
   return (
     <div className="fixed top-0 left-0 right-0 bottom-4">
       <div
         className={twJoin(
-          "absolute inset-10 rounded-xl border-dashed border-4 border-gray-300 flex items-center justify-center transition-colors duration-300 ease-in-out",
+          "absolute inset-10 rounded-xl border-dashed border-4 border-gray-300 cursor-pointer flex items-center justify-center transition-colors duration-300 ease-in-out",
           dragging && "border-blue-500 bg-blue-100",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        onClick={handleClick}
       >
-        <p className="text-xl font-bold">
+        <input
+          type="file"
+          multiple
+          hidden
+          ref={fileInputRef}
+          onChange={handleFileInputChange}
+        />
+        <p className="text-xl font-bold px-4 text-center">
           {dragging ? "Drop here" : "Drag and drop any image files here"}
         </p>
       </div>
