@@ -1,6 +1,7 @@
 import { unzip } from "unzipit"
 
 const looksLikeImage = (fileName: string) => {
+  if (fileName.startsWith("__MACOSX")) return false
   return (
     fileName.endsWith(".jpg") ||
     fileName.endsWith(".jpeg") ||
@@ -10,30 +11,55 @@ const looksLikeImage = (fileName: string) => {
   )
 }
 
-export const getImageFiles = async (files: File[]): Promise<File[]> => {
+const looksLikeZip = (fileName: string) => {
+  if (fileName.startsWith("__MACOSX")) return false
+  return fileName.endsWith(".zip")
+}
+
+const unzipFile = async (file: File) => {
+  if (file.name.endsWith(".zip")) {
+    const { entries } = await unzip(file)
+    const names = Object.keys(entries).filter(
+      (entry) => looksLikeZip(entry) || looksLikeImage(entry),
+    )
+    const blobs = await Promise.all(
+      names.map((name) =>
+        looksLikeImage(name)
+          ? entries[name].blob("image/*")
+          : entries[name].blob("application/zip"),
+      ),
+    )
+    const files = blobs
+      .map((blob, index) => new File([blob], names[index], { type: blob.type }))
+      .sort((a, b) => a.name.localeCompare(b.name))
+    const unzippedFiles: Array<File> = []
+    for await (const file of files) {
+      if (file.name.endsWith(".zip")) {
+        const newFiles = await unzipFile(file)
+        unzippedFiles.push(...newFiles)
+      } else {
+        unzippedFiles.push(file)
+      }
+    }
+    return unzippedFiles
+  }
+  return []
+}
+
+export const getImageFiles = async (files: File[]) => {
   const sortedFiles = files
     .filter(
       (file) => file.type.startsWith("image/") || file.name.endsWith(".zip"),
     )
     .sort((a, b) => a.name.localeCompare(b.name))
-
   const unzippedFiles: Array<File> = []
-
   for await (const file of sortedFiles) {
     if (file.name.endsWith(".zip")) {
-      const { entries } = await unzip(file)
-      const names = Object.keys(entries).filter(looksLikeImage)
-      const blobs = await Promise.all(
-        names.map((name) => entries[name].blob("image/*")),
-      )
-      const newFiles = blobs.map(
-        (blob, index) => new File([blob], names[index], { type: blob.type }),
-      )
+      const newFiles = await unzipFile(file)
       unzippedFiles.push(...newFiles)
     } else {
       unzippedFiles.push(file)
     }
   }
-
   return unzippedFiles
 }
