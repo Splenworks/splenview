@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <DragDropArea setDroppedFiles={setFiles} />
+      <DragDropArea setFiles={setFiles} />
       <Footer />
     </>
   )

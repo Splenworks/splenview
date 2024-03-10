@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react"
 import { twJoin } from "tailwind-merge"
-import { getImageFiles } from "./utils/sortFiles"
+import { getImageFiles } from "./utils/getImageFiles"
 
 interface DragDropAreaProps {
-  setDroppedFiles: React.Dispatch<React.SetStateAction<File[]>>
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>
 }
 
-const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
+const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -24,20 +24,24 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setDroppedFiles }) => {
     e.preventDefault()
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragging(false)
     const files = Array.from(e.dataTransfer.files)
-    setDroppedFiles(getImageFiles(files))
+    const imageFiles = await getImageFiles(files)
+    setFiles(imageFiles)
   }
 
   const handleClick = () => {
     fileInputRef.current?.click()
   }
 
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(e.target.files || [])
-    setDroppedFiles(getImageFiles(files))
+    const imageFiles = await getImageFiles(files)
+    setFiles(imageFiles)
   }
 
   return (
