@@ -32,15 +32,24 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragging(false)
+    if (loading) return
     setLoading(true)
     const items = e.dataTransfer.items
-    const allFiles = await getImageFilesFromDataTransfer(items)
-    const imageFiles = await getImageFiles(allFiles)
-    setFiles(imageFiles)
-    setLoading(false)
+    try {
+      const allFiles = await getImageFilesFromDataTransfer(items)
+      const imageFiles = await getImageFiles(allFiles)
+      setFiles(imageFiles)
+    } catch (error) {
+      alert(error)
+      console.error(error)
+      setFiles([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleClick = () => {
+    if (loading) return
     fileInputRef.current?.click()
   }
 
@@ -49,9 +58,16 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   ) => {
     const files = Array.from(e.target.files || [])
     setLoading(true)
-    const imageFiles = await getImageFiles(files)
-    setFiles(imageFiles)
-    setLoading(false)
+    try {
+      const imageFiles = await getImageFiles(files)
+      setFiles(imageFiles)
+    } catch (error) {
+      alert(error)
+      console.error(error)
+      setFiles([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
