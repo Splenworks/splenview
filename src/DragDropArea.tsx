@@ -69,7 +69,9 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
           onChange={handleFileInputChange}
         />
         <p className="text-xl font-bold px-4 text-center">
-          {dragging ? "Drop here" : "Drag and drop any image or zip files here"}
+          {dragging
+            ? "Drop here"
+            : "Drag and drop any folder, image or zip files here"}
         </p>
       </div>
     </div>
