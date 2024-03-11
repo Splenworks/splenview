@@ -3,22 +3,25 @@ import { getAllFileEntries } from "./getAllFileEntries"
 
 const looksLikeImage = (fileName: string) => {
   if (fileName.startsWith("__MACOSX")) return false
+  const lowerCaseFileName = fileName.toLowerCase()
   return (
-    fileName.endsWith(".jpg") ||
-    fileName.endsWith(".jpeg") ||
-    fileName.endsWith(".png") ||
-    fileName.endsWith(".gif") ||
-    fileName.endsWith(".webp")
+    lowerCaseFileName.endsWith(".jpg") ||
+    lowerCaseFileName.endsWith(".jpeg") ||
+    lowerCaseFileName.endsWith(".png") ||
+    lowerCaseFileName.endsWith(".gif") ||
+    lowerCaseFileName.endsWith(".webp")
   )
 }
 
 const looksLikeZip = (fileName: string) => {
   if (fileName.startsWith("__MACOSX")) return false
-  return fileName.endsWith(".zip")
+  const lowerCaseFileName = fileName.toLowerCase()
+  return lowerCaseFileName.endsWith(".zip")
 }
 
 const unzipFile = async (file: File) => {
-  if (file.name.endsWith(".zip")) {
+  const zipFileName = file.name
+  if (zipFileName.endsWith(".zip")) {
     const { entries } = await unzip(file)
     const names = Object.keys(entries).filter(
       (entry) => looksLikeZip(entry) || looksLikeImage(entry),
@@ -31,7 +34,12 @@ const unzipFile = async (file: File) => {
       ),
     )
     const files = blobs
-      .map((blob, index) => new File([blob], names[index], { type: blob.type }))
+      .map(
+        (blob, index) =>
+          new File([blob], `${zipFileName}/${names[index]}`, {
+            type: blob.type,
+          }),
+      )
       .sort((a, b) => a.name.localeCompare(b.name))
     const unzippedFiles: Array<File> = []
     for await (const file of files) {
