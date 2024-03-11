@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react"
 import { twJoin } from "tailwind-merge"
-import { getImageFiles } from "./utils/getImageFiles"
+import {
+  getImageFiles,
+  getImageFilesFromDataTransfer,
+} from "./utils/getImageFiles"
 
 interface DragDropAreaProps {
   setFiles: React.Dispatch<React.SetStateAction<File[]>>
@@ -27,8 +30,9 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragging(false)
-    const files = Array.from(e.dataTransfer.files)
-    const imageFiles = await getImageFiles(files)
+    const items = e.dataTransfer.items
+    const allFiles = await getImageFilesFromDataTransfer(items)
+    const imageFiles = await getImageFiles(allFiles)
     setFiles(imageFiles)
   }
 

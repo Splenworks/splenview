@@ -1,4 +1,5 @@
 import { unzip } from "unzipit"
+import { getAllFileEntries } from "./getFromDirectory"
 
 const looksLikeImage = (fileName: string) => {
   if (fileName.startsWith("__MACOSX")) return false
@@ -62,4 +63,20 @@ export const getImageFiles = async (files: File[]) => {
     }
   }
   return unzippedFiles
+}
+
+export const getImageFilesFromDataTransfer = async (
+  items: DataTransferItemList,
+) => {
+  const entries = await getAllFileEntries(items)
+  const fileEntries = entries.filter((entry) => entry.isFile)
+  const files = await Promise.all(
+    (fileEntries as FileSystemFileEntry[]).map(async (entry) => {
+      const file = await new Promise<File>((resolve, reject) => {
+        entry.file(resolve, reject)
+      })
+      return file
+    }),
+  )
+  return getImageFiles(files)
 }
