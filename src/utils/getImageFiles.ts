@@ -1,5 +1,5 @@
 import { unzip } from "unzipit"
-import { getAllFileEntries } from "./getFromDirectory"
+import { getAllFileEntries } from "./getAllFileEntries"
 
 const looksLikeImage = (fileName: string) => {
   if (fileName.startsWith("__MACOSX")) return false
