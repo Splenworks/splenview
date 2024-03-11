@@ -4,6 +4,7 @@ import {
   getImageFiles,
   getImageFilesFromDataTransfer,
 } from "./utils/getImageFiles"
+import Spinner from "./Spinner"
 
 interface DragDropAreaProps {
   setFiles: React.Dispatch<React.SetStateAction<File[]>>
@@ -12,6 +13,7 @@ interface DragDropAreaProps {
 const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [loading, setLoading] = useState(false)
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -30,10 +32,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragging(false)
+    setLoading(true)
     const items = e.dataTransfer.items
     const allFiles = await getImageFilesFromDataTransfer(items)
     const imageFiles = await getImageFiles(allFiles)
     setFiles(imageFiles)
+    setLoading(false)
   }
 
   const handleClick = () => {
@@ -44,8 +48,10 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const files = Array.from(e.target.files || [])
+    setLoading(true)
     const imageFiles = await getImageFiles(files)
     setFiles(imageFiles)
+    setLoading(false)
   }
 
   return (
@@ -68,11 +74,15 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
           ref={fileInputRef}
           onChange={handleFileInputChange}
         />
-        <p className="text-xl font-bold px-4 text-center">
-          {dragging
-            ? "Drop here"
-            : "Drag and drop any folder, image or zip files here"}
-        </p>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <p className="text-xl font-bold px-4 text-center">
+            {dragging
+              ? "Drop here"
+              : "Drag and drop any folder, image or zip files here"}
+          </p>
+        )}
       </div>
     </div>
   )
