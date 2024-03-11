@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import DragDropArea from "./DragDropArea"
 import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
+import Footer from "./Footer"
 
 function App() {
   const [files, setFiles] = useState<File[]>([])
@@ -60,7 +61,12 @@ function App() {
     )
   }
 
-  return <DragDropArea setDroppedFiles={setFiles} />
+  return (
+    <>
+      <DragDropArea setFiles={setFiles} />
+      <Footer />
+    </>
+  )
 }
 
 export default App
