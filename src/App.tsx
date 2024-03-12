@@ -27,6 +27,7 @@ function App() {
             setCurrentIndex((index) => index + 1)
             setShowFileInfo(false)
           } else {
+            alert("You have reached the end of the list.")
             initialize()
           }
         } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
