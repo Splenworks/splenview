@@ -29,8 +29,6 @@ function App() {
     if (currentIndex > 0) {
       setCurrentIndex((index) => index - 1)
       setShowFileInfo(false)
-    } else {
-      initialize()
     }
   }
 
