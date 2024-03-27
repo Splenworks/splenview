@@ -1,5 +1,6 @@
 import { unzip } from "unzipit"
 import { getAllFileEntries } from "./getAllFileEntries"
+import { FileList } from "../types/FileList"
 
 const looksLikeImage = (fileName: string) => {
   if (fileName.startsWith("__MACOSX")) return false
@@ -19,7 +20,7 @@ const looksLikeZip = (fileName: string) => {
   return lowerCaseFileName.endsWith(".zip")
 }
 
-const unzipFile = async (file: File) => {
+const unzipFile = async (file: File, displayName: string) => {
   const zipFileName = file.name
   if (zipFileName.endsWith(".zip")) {
     const { entries } = await unzip(file)
@@ -33,21 +34,19 @@ const unzipFile = async (file: File) => {
           : entries[name].blob("application/zip"),
       ),
     )
-    const files = blobs
-      .map(
-        (blob, index) =>
-          new File([blob], `${zipFileName}/${names[index]}`, {
-            type: blob.type,
-          }),
-      )
-      .sort((a, b) => a.name.localeCompare(b.name))
-    const unzippedFiles: Array<File> = []
+    const files = blobs.map(
+      (blob, index) =>
+        new File([blob], names[index], {
+          type: blob.type,
+        }),
+    )
+    const unzippedFiles: FileList = []
     for await (const file of files) {
       if (file.name.endsWith(".zip")) {
-        const newFiles = await unzipFile(file)
+        const newFiles = await unzipFile(file, `${displayName}/${file.name}`)
         unzippedFiles.push(...newFiles)
       } else {
-        unzippedFiles.push(file)
+        unzippedFiles.push({ file, displayName: `${displayName}/${file.name}` })
       }
     }
     return unzippedFiles
@@ -55,22 +54,33 @@ const unzipFile = async (file: File) => {
   return []
 }
 
-export const getImageFiles = async (files: File[]) => {
-  const sortedFiles = files
-    .filter(
-      (file) => file.type.startsWith("image/") || file.name.endsWith(".zip"),
-    )
-    .sort((a, b) => a.name.localeCompare(b.name))
-  const unzippedFiles: Array<File> = []
-  for await (const file of sortedFiles) {
-    if (file.name.endsWith(".zip")) {
-      const newFiles = await unzipFile(file)
-      unzippedFiles.push(...newFiles)
+export const getImageFiles = async (files: File[], displayNames?: string[]) => {
+  if (!displayNames || displayNames.length !== files.length) {
+    displayNames = files.map((file) => file.name)
+  }
+  const fileList = files.map((file, index) => ({
+    displayName: displayNames![index],
+    file,
+  }))
+  const filteredFileList = fileList.filter(
+    (item) =>
+      item.file.type.startsWith("image/") || item.file.name.endsWith(".zip"),
+  )
+  const unzippedFileList: FileList = []
+  for await (const fileListItem of filteredFileList) {
+    if (fileListItem.file.name.endsWith(".zip")) {
+      const newFileList = await unzipFile(
+        fileListItem.file,
+        fileListItem.displayName,
+      )
+      unzippedFileList.push(...newFileList)
     } else {
-      unzippedFiles.push(file)
+      unzippedFileList.push(fileListItem)
     }
   }
-  return unzippedFiles
+  return unzippedFileList.sort((a, b) =>
+    a.displayName.localeCompare(b.displayName),
+  )
 }
 
 export const getImageFilesFromDataTransfer = async (
@@ -78,13 +88,16 @@ export const getImageFilesFromDataTransfer = async (
 ) => {
   const entries = await getAllFileEntries(items)
   const fileEntries = entries.filter((entry) => entry.isFile)
-  const files = await Promise.all(
+  const fileList: FileList = await Promise.all(
     (fileEntries as FileSystemFileEntry[]).map(async (entry) => {
+      const displayName = entry.fullPath
       const file = await new Promise<File>((resolve, reject) => {
         entry.file(resolve, reject)
       })
-      return file
+      return { file, displayName }
     }),
   )
-  return getImageFiles(files)
+  const files = fileList.map((item) => item.file)
+  const displayNames = fileList.map((item) => item.displayName)
+  return getImageFiles(files, displayNames)
 }

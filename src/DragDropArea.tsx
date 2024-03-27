@@ -5,12 +5,13 @@ import {
   getImageFilesFromDataTransfer,
 } from "./utils/getImageFiles"
 import Spinner from "./Spinner"
+import { FileList } from "./types/FileList"
 
 interface DragDropAreaProps {
-  setFiles: React.Dispatch<React.SetStateAction<File[]>>
+  setFileList: React.Dispatch<React.SetStateAction<FileList>>
 }
 
-const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
+const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
@@ -36,13 +37,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
     setLoading(true)
     const items = e.dataTransfer.items
     try {
-      const allFiles = await getImageFilesFromDataTransfer(items)
-      const imageFiles = await getImageFiles(allFiles)
-      setFiles(imageFiles)
+      const imageFileList = await getImageFilesFromDataTransfer(items)
+      setFileList(imageFileList)
     } catch (error) {
       alert(error)
       console.error(error)
-      setFiles([])
+      setFileList([])
     } finally {
       setLoading(false)
     }
@@ -59,12 +59,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFiles }) => {
     const files = Array.from(e.target.files || [])
     setLoading(true)
     try {
-      const imageFiles = await getImageFiles(files)
-      setFiles(imageFiles)
+      const imageFileList = await getImageFiles(files)
+      setFileList(imageFileList)
     } catch (error) {
       alert(error)
       console.error(error)
-      setFiles([])
+      setFileList([])
     } finally {
       setLoading(false)
     }
