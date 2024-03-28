@@ -69,11 +69,11 @@ function App() {
         )}
         <div
           className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-          onClick={goPrevious}
+          onTouchStart={goPrevious}
         />
         <div
           className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-          onClick={goNext}
+          onTouchStart={goNext}
         />
       </>
     )
