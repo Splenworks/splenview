@@ -93,11 +93,18 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         {loading ? (
           <Spinner />
         ) : (
-          <p className="text-xl font-bold px-4 text-center">
-            {dragging
-              ? "Drop here"
-              : "Drag and drop any folder, image or zip files here"}
-          </p>
+          <div className="px-4">
+            {dragging ? (
+              <p className="mb-4 text-xl font-bold text-center">Drop here</p>
+            ) : (
+              <p className="mb-4 text-xl font-bold text-center">
+                Drag and drop any <u>images</u> here!
+              </p>
+            )}
+            <p className="mb-4 text-lg text-center">
+              You can even drop multiple <u>zip</u> files or <u>folders</u>.
+            </p>
+          </div>
         )}
       </div>
     </div>
