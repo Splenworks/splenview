@@ -4,6 +4,7 @@ import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
 import Footer from "./Footer"
 import { FileList } from "./types/FileList"
+import Header from "./Header"
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -81,6 +82,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <DragDropArea setFileList={setFileList} />
       <Footer />
     </>
