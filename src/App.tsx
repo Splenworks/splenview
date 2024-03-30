@@ -10,19 +10,24 @@ function App() {
   const [fileList, setFileList] = useState<FileList>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showFileInfo, setShowFileInfo] = useState(false)
+  const [readyToExit, setReadyToExit] = useState(false)
 
   const initialize = () => {
     setFileList([])
     setCurrentIndex(0)
     setShowFileInfo(false)
+    setReadyToExit(false)
   }
 
   const goNext = () => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
       setShowFileInfo(false)
-    } else {
+      setReadyToExit(false)
+    } else if (!readyToExit) {
       alert("You have reached the end of the list.")
+      setReadyToExit(true)
+    } else {
       initialize()
     }
   }
@@ -31,6 +36,12 @@ function App() {
     if (currentIndex > 0) {
       setCurrentIndex((index) => index - 1)
       setShowFileInfo(false)
+      setReadyToExit(false)
+    } else if (!readyToExit) {
+      alert("You have reached the beginning of the list.")
+      setReadyToExit(true)
+    } else {
+      initialize()
     }
   }
 
@@ -59,7 +70,7 @@ function App() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [fileList, currentIndex])
+  }, [fileList, currentIndex, readyToExit])
 
   if (fileList.length > 0 && currentIndex < fileList.length) {
     return (
