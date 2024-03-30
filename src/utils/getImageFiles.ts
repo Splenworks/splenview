@@ -90,7 +90,9 @@ export const getImageFilesFromDataTransfer = async (
   const fileEntries = entries.filter((entry) => entry.isFile)
   const fileList: FileList = await Promise.all(
     (fileEntries as FileSystemFileEntry[]).map(async (entry) => {
-      const displayName = entry.fullPath
+      const displayName = entry.fullPath.startsWith("/")
+        ? entry.fullPath.slice(1)
+        : entry.fullPath
       const file = await new Promise<File>((resolve, reject) => {
         entry.file(resolve, reject)
       })
