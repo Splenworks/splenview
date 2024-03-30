@@ -13,20 +13,20 @@ const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [showFileInfo, setShowFileInfo] = useState(false)
+  const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
 
   const initialize = () => {
     setFileList([])
     setCurrentIndex(0)
-    setShowFileInfo(false)
+    setInfoMode(false)
     setReadyToExit(false)
   }
 
   const goNext = () => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
-      setShowFileInfo(false)
+      setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
       alert("You have reached the end of the list.")
@@ -39,7 +39,7 @@ function App() {
   const goPrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex((index) => index - 1)
-      setShowFileInfo(false)
+      setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
       alert("You have reached the beginning of the list.")
@@ -67,7 +67,7 @@ function App() {
           goPrevious()
         } else if (event.key === "Tab") {
           event.preventDefault()
-          setShowFileInfo((show) => !show)
+          setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
           initialize()
         }
@@ -104,9 +104,7 @@ function App() {
     return (
       <>
         <ImageViewer file={fileList[currentIndex].file} />
-        {showFileInfo && (
-          <FileInfo fileName={fileList[currentIndex].displayName} />
-        )}
+        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
         <div
           className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
           onTouchStart={goPrevious}
