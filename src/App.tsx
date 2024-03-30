@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import DragDropArea from "./DragDropArea"
 import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
 import Footer from "./Footer"
 import { FileList } from "./types/FileList"
 import Header from "./Header"
+import { hashCode } from "./utils/hashCode"
+import { parseJsonObj } from "./utils/parseJsonObj"
+
+const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -45,6 +49,11 @@ function App() {
     }
   }
 
+  const hash = useMemo(
+    () => hashCode(fileList.map(({ file }) => file.name).join("")),
+    [fileList],
+  )
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (fileList.length > 0) {
@@ -64,13 +73,32 @@ function App() {
         }
       }
     }
-
     window.addEventListener("keydown", handleKeyDown)
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
   }, [fileList, currentIndex, readyToExit])
+
+  useEffect(() => {
+    if (fileList.length === 0) return
+    const currentIndex = currentIndexes[hash]
+    if (
+      currentIndex &&
+      typeof currentIndex === "number" &&
+      currentIndex <= fileList.length - 2
+    ) {
+      setCurrentIndex(currentIndex)
+    } else {
+      setCurrentIndex(0)
+      currentIndexes[hash] = 0
+    }
+  }, [fileList])
+
+  useEffect(() => {
+    if (fileList.length === 0) return
+    currentIndexes[hash] = currentIndex
+    localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
+  }, [fileList, currentIndex])
 
   if (fileList.length > 0 && currentIndex < fileList.length) {
     return (
