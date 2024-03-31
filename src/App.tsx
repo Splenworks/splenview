@@ -84,13 +84,13 @@ function App() {
 
   useEffect(() => {
     if (fileList.length === 0) return
-    const currentIndex = currentIndexes[hash]
+    const hashedCurrentIndex = currentIndexes[hash]
     if (
-      currentIndex &&
-      typeof currentIndex === "number" &&
-      currentIndex <= fileList.length - 2
+      hashedCurrentIndex &&
+      typeof hashedCurrentIndex === "number" &&
+      hashedCurrentIndex <= fileList.length - 2
     ) {
-      setCurrentIndex(currentIndex)
+      setCurrentIndex(hashedCurrentIndex)
     } else {
       setCurrentIndex(0)
     }
@@ -98,6 +98,7 @@ function App() {
 
   useEffect(() => {
     if (currentIndex === -1) return
+    if (currentIndex === 0 && !currentIndexes[hash]) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
   }, [currentIndex])
