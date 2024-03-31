@@ -12,13 +12,13 @@ const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(-1)
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
 
   const initialize = () => {
     setFileList([])
-    setCurrentIndex(0)
+    setCurrentIndex(-1)
     setInfoMode(false)
     setReadyToExit(false)
   }
@@ -93,17 +93,20 @@ function App() {
       setCurrentIndex(currentIndex)
     } else {
       setCurrentIndex(0)
-      currentIndexes[hash] = 0
     }
   }, [fileList])
 
   useEffect(() => {
-    if (fileList.length === 0) return
+    if (currentIndex === -1) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
-  }, [fileList, currentIndex])
+  }, [currentIndex])
 
-  if (fileList.length > 0 && currentIndex < fileList.length) {
+  if (
+    fileList.length > 0 &&
+    currentIndex < fileList.length &&
+    currentIndex >= 0
+  ) {
     return (
       <>
         <ImageViewer file={fileList[currentIndex].file} />
