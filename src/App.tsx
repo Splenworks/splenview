@@ -50,7 +50,10 @@ function App() {
   }
 
   const hash = useMemo(
-    () => hashCode(fileList.map(({ file }) => file.name).join("")),
+    () =>
+      hashCode(
+        fileList.map((item) => item.displayName + item.file.size).join(""),
+      ),
     [fileList],
   )
 
