@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import DragDropArea from "./DragDropArea"
 import ImageViewer from "./ImageViewer"
-import FileInfo from "./FileInfo"
+import FileListInfo from "./FileListInfo"
 import Footer from "./Footer"
 import { FileList } from "./types/FileList"
 import Header from "./Header"
@@ -111,7 +111,9 @@ function App() {
     return (
       <>
         <ImageViewer file={fileList[currentIndex].file} />
-        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
+        {infoMode && (
+          <FileListInfo fileList={fileList} currentIndex={currentIndex} />
+        )}
         <div
           className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
           onTouchStart={goPrevious}
