@@ -75,7 +75,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
       <div
         className={twJoin(
           "absolute inset-x-8 md:inset-x-16 inset-y-0 rounded-xl border-dashed border-4 border-gray-300 cursor-pointer flex items-center justify-center transition-colors duration-300 ease-in-out",
-          dragging && "border-blue-500 bg-blue-100 dark:bg-neutral-500",
+          (dragging || loading) && "bg-neutral-200 dark:bg-neutral-600",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -93,9 +93,11 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="px-4 text-black dark:text-white">
+          <div className="px-4 text-black dark:text-white pointer-events-none">
             {dragging ? (
-              <p className="text-xl font-bold text-center">Drop here</p>
+              <p className="text-xl font-bold text-center text-gray-50 dark:text-white shadow-gray-600 dark:shadow-black [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)]">
+                Drop here
+              </p>
             ) : (
               <>
                 <p className="mb-4 text-xl font-bold text-center">
