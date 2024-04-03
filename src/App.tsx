@@ -18,14 +18,14 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: {
-        translation: enTranslation,
-      },
+      // en: {
+      //   translation: enTranslation,
+      // },
       ko: {
         translation: koTranslation,
       },
     },
-    fallbackLng: "en",
+    fallbackLng: "ko",
     interpolation: {
       escapeValue: false,
     },

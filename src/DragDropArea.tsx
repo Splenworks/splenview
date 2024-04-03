@@ -7,6 +7,7 @@ import {
 import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
 import { PhotoIcon } from "@heroicons/react/24/solid"
+import { Trans } from "react-i18next"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -104,10 +105,16 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
               <div className="flex flex-col items-center justify-center">
                 <PhotoIcon className="mb-8 w-24 h-24 text-pink-900 dark:text-pink-700" />
                 <p className="mb-4 text-xl font-bold text-center">
-                  Drag and drop any <u>images</u> here!
+                  <Trans
+                    i18nKey="dragDropArea.mainMessage"
+                    components={{ u: <u /> }}
+                  />
                 </p>
                 <p className="text-lg text-center">
-                  You can even drop multiple <u>zip</u> files or <u>folders</u>.
+                  <Trans
+                    i18nKey="dragDropArea.subMessage"
+                    components={{ u: <u /> }}
+                  />
                 </p>
               </div>
             )}

@@ -1,4 +1,8 @@
 {
+  "dragDropArea": {
+    "mainMessage": "Drag and drop any <u>images</u> here!",
+    "subMessage": "You can even drop multiple <u>zip</u> files or <u>folders</u>."
+  },
   "footer": {
     "checkOutProduct": "Check out our other product <link />"
   }

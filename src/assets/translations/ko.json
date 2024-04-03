@@ -1,4 +1,8 @@
 {
+  "dragDropArea": {
+    "mainMessage": "여기에 당신의 <u>이미지</u>를 드래그 드롭하세요!",
+    "subMessage": "여러 <u>zip</u> 파일이나 심지어 <u>폴더</u>도 가능합니다."
+  },
   "footer": {
     "checkOutProduct": "우리의 다른 제품 <link />도 확인해보세요"
   }
