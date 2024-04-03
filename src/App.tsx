@@ -7,6 +7,29 @@ import { FileList } from "./types/FileList"
 import Header from "./Header"
 import { hashCode } from "./utils/hashCode"
 import { parseJsonObj } from "./utils/parseJsonObj"
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import enTranslation from "./assets/translations/en.json"
+import koTranslation from "./assets/translations/ko.json"
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: {
+        translation: enTranslation,
+      },
+      ko: {
+        translation: koTranslation,
+      },
+    },
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+  })
 
 const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 
