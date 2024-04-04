@@ -99,7 +99,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
           <div className="px-4 text-black dark:text-white pointer-events-none">
             {dragging ? (
               <p className="text-xl font-bold text-center text-gray-50 dark:text-white shadow-gray-600 dark:shadow-black [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)]">
-                Drop here
+                <Trans i18nKey="dragDropArea.dropHere" />
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
