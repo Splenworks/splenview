@@ -2,7 +2,20 @@ import React from "react"
 import { Trans } from "react-i18next"
 import CommitHash from "virtual:commit-hash"
 
+const otherProducts = [
+  {
+    name: "SplenPlayer",
+    url: "https://splenplayer.com",
+  },
+  {
+    name: "txtpad.io",
+    url: "https://txtpad.io",
+  },
+]
+
 const Footer: React.FC = () => {
+  const randomProduct =
+    otherProducts[Math.floor(Math.random() * otherProducts.length)]
   return (
     <footer className="absolute bottom-0 left-0 right-0 bg-white dark:bg-neutral-900">
       <div className="flex items-center justify-center h-16 mx-8 md:mx-16">
@@ -13,11 +26,11 @@ const Footer: React.FC = () => {
             components={{
               link: (
                 <a
-                  href="https://splenplayer.com"
+                  href={randomProduct.url}
                   target="_blank"
                   className="underline"
                 >
-                  SplenPlayer
+                  {randomProduct.name}
                 </a>
               ),
             }}
