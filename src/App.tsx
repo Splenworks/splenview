@@ -99,19 +99,19 @@ function App() {
         }
       }
     }
-    const handleMouseWheel = (event: WheelEvent) => {
-      const lastIndex = fileList.length - 1
-      if (event.deltaY > 0) {
-        setCurrentIndex(currentIndex < lastIndex ? currentIndex + 1 : lastIndex)
-      } else if (event.deltaY < 0) {
-        setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : 0)
-      }
-    }
+    // const handleMouseWheel = (event: WheelEvent) => {
+    //   const lastIndex = fileList.length - 1
+    //   if (event.deltaY > 0) {
+    //     setCurrentIndex(currentIndex < lastIndex ? currentIndex + 1 : lastIndex)
+    //   } else if (event.deltaY < 0) {
+    //     setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : 0)
+    //   }
+    // }
     window.addEventListener("keydown", handleKeyDown)
-    window.addEventListener("wheel", handleMouseWheel)
+    // window.addEventListener("wheel", handleMouseWheel)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
-      window.removeEventListener("wheel", handleMouseWheel)
+      // window.removeEventListener("wheel", handleMouseWheel)
     }
   }, [fileList, currentIndex, readyToExit])
 
