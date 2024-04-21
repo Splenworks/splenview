@@ -35,6 +35,7 @@ const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
+  const [exited, setExited] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
@@ -95,7 +96,9 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          initialize()
+          setInfoMode(false)
+          setReadyToExit(false)
+          setExited(true)
         }
       }
     }
@@ -117,6 +120,7 @@ function App() {
 
   useEffect(() => {
     if (fileList.length === 0) return
+    setExited(false)
     const hashedCurrentIndex = currentIndexes[hash]
     if (
       hashedCurrentIndex &&
@@ -137,6 +141,7 @@ function App() {
   }, [currentIndex])
 
   if (
+    !exited &&
     fileList.length > 0 &&
     currentIndex < fileList.length &&
     currentIndex >= 0
@@ -159,7 +164,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header exited={exited} goBack={() => setExited(false)} />
       <DragDropArea setFileList={setFileList} />
       <Footer />
     </>
