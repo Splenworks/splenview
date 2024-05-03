@@ -157,7 +157,16 @@ function App() {
           className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
           onTouchStart={goNext}
         />
-        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
+        {infoMode && (
+          <FileInfo
+            fileName={fileList[currentIndex].displayName}
+            exit={() => {
+              setInfoMode(false)
+              setReadyToExit(false)
+              setExited(true)
+            }}
+          />
+        )}
       </>
     )
   }
