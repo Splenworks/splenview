@@ -12,6 +12,7 @@ import { initReactI18next, useTranslation } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
+import LongTouchDiv from "./LongTouchDiv"
 
 i18n
   .use(LanguageDetector)
@@ -150,23 +151,30 @@ function App() {
     return (
       <>
         <ImageViewer file={fileList[currentIndex].file} />
-        <div
-          className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-          onTouchStart={goPrevious}
-        />
-        <div
-          className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-          onTouchStart={goNext}
-        />
-        {infoMode && (
-          <FileInfo
-            fileName={fileList[currentIndex].displayName}
-            exit={() => {
-              setInfoMode(false)
-              setReadyToExit(false)
-              setExited(true)
-            }}
-          />
+        {infoMode ? (
+          <div onTouchEnd={() => setInfoMode((prev) => !prev)}>
+            <FileInfo
+              fileName={fileList[currentIndex].displayName}
+              exit={() => {
+                setInfoMode(false)
+                setReadyToExit(false)
+                setExited(true)
+              }}
+            />
+          </div>
+        ) : (
+          <>
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+              onTouchEnd={goPrevious}
+              onLongTouched={() => setInfoMode((prev) => !prev)}
+            />
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+              onTouchEnd={goNext}
+              onLongTouched={() => setInfoMode((prev) => !prev)}
+            />
+          </>
         )}
       </>
     )
