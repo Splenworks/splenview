@@ -8,7 +8,7 @@ import Header from "./Header"
 import { hashCode } from "./utils/hashCode"
 import { parseJsonObj } from "./utils/parseJsonObj"
 import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
+import { initReactI18next, useTranslation } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
@@ -39,6 +39,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
+  const { t } = useTranslation()
 
   const initialize = () => {
     setFileList([])
@@ -53,7 +54,7 @@ function App() {
       setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
-      alert("You have reached the end of the list.")
+      alert(t("messages.reachedEnd"))
       setReadyToExit(true)
     } else {
       initialize()
@@ -66,7 +67,7 @@ function App() {
       setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
-      alert("You have reached the beginning of the list.")
+      alert(t("messages.reachedBeginning"))
       setReadyToExit(true)
     } else {
       initialize()

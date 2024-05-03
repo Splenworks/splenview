@@ -10,5 +10,9 @@
   },
   "footer": {
     "checkOutProduct": "우리의 다른 제품 <link />도 확인해보세요"
+  },
+  "messages": {
+    "reachedEnd": "마지막 이미지입니다.",
+    "reachedBeginning": "첫번째 이미지입니다."
   }
 }

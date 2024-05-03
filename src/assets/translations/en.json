@@ -10,5 +10,9 @@
   },
   "footer": {
     "checkOutProduct": "Check out our other product <link />"
+  },
+  "messages": {
+    "reachedEnd": "You have reached the end of the list.",
+    "reachedBeginning": "You have reached the beginning of the list."
   }
 }
