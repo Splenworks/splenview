@@ -7,7 +7,7 @@ import {
 import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
 import { PhotoIcon } from "@heroicons/react/24/solid"
-import { Trans } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -17,6 +17,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -40,11 +41,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
     const items = e.dataTransfer.items
     try {
       const imageFileList = await getImageFilesFromDataTransfer(items)
+      if (imageFileList.length === 0)
+        throw new Error(t("dragDropArea.noImageFilesFound"))
       setFileList(imageFileList)
     } catch (error) {
-      alert(error)
+      alert(error instanceof Error ? error.message : error)
       console.error(error)
-      setFileList([])
     } finally {
       setLoading(false)
     }
@@ -62,11 +64,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
     setLoading(true)
     try {
       const imageFileList = await getImageFiles(files)
+      if (imageFileList.length === 0)
+        throw new Error(t("dragDropArea.noImageFilesFound"))
       setFileList(imageFileList)
     } catch (error) {
-      alert(error)
+      alert(error instanceof Error ? error.message : error)
       console.error(error)
-      setFileList([])
     } finally {
       setLoading(false)
     }
