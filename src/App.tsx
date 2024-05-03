@@ -149,7 +149,6 @@ function App() {
     return (
       <>
         <ImageViewer file={fileList[currentIndex].file} />
-        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
         <div
           className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
           onTouchStart={goPrevious}
@@ -158,6 +157,7 @@ function App() {
           className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
           onTouchStart={goNext}
         />
+        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
       </>
     )
   }

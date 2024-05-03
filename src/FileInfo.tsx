@@ -1,4 +1,6 @@
 import React from "react"
+import IconButton from "./IconButton"
+import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
 
 interface FileInfoProps {
   fileName: string
@@ -15,6 +17,16 @@ const FileInfo: React.FC<FileInfoProps> = ({ fileName }) => {
     >
       <div className="absolute top-4 left-6 right-4 flex justify-between items-center">
         <span className="font-semibold text-xl">{fileName}</span>
+        <IconButton
+          id="exitButton"
+          svgIcon={CloseIcon}
+          onClick={() => {
+            alert("exit")
+            // if (controlsRef.current?.style.opacity !== "0") {
+            //   exit()
+            // }
+          }}
+        />
       </div>
     </div>
   )
