@@ -75,6 +75,19 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    const handleContextmenu = (e: MouseEvent) => {
+      // Disable right-click context menu on touch devices
+      if (window.matchMedia("(pointer: coarse)").matches) {
+        e.preventDefault()
+      }
+    }
+    document.addEventListener("contextmenu", handleContextmenu)
+    return () => {
+      document.removeEventListener("contextmenu", handleContextmenu)
+    }
+  }, [])
+
   const hash = useMemo(
     () =>
       hashCode(
