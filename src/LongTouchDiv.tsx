@@ -7,7 +7,7 @@ interface LongTouchDivProps {
 
 const LongTouchDiv: React.FC<
   PropsWithChildren<LongTouchDivProps & React.HTMLProps<HTMLDivElement>>
-> = ({ onLongTouched, delay = 1000, children, ...props }) => {
+> = ({ onLongTouched, delay = 750, children, ...props }) => {
   const handleTouchStart = () => {
     const timeout = setTimeout(() => {
       onLongTouched()
