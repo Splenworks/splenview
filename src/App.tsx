@@ -41,6 +41,7 @@ function App() {
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
   const { t } = useTranslation()
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
 
   const initialize = () => {
     setFileList([])
@@ -78,7 +79,7 @@ function App() {
   useEffect(() => {
     const handleContextmenu = (e: MouseEvent) => {
       // Disable right-click context menu on touch devices
-      if (window.matchMedia("(pointer: coarse)").matches) {
+      if (isTouchDevice) {
         e.preventDefault()
       }
     }
@@ -161,7 +162,6 @@ function App() {
     currentIndex < fileList.length &&
     currentIndex >= 0
   ) {
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
       <div id="imageViewer">
