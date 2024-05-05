@@ -2,8 +2,10 @@ import React from "react"
 import IconButton from "./IconButton"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
+import { ReactComponent as ExitIcon } from "./assets/exit.svg"
 import { ReactComponent as FullscreenIcon } from "./assets/expand.svg"
 import { ReactComponent as ExitFullscreenIcon } from "./assets/compress.svg"
+import { isTouchDevice } from "./utils/isTouchDevice"
 
 interface FileInfoProps {
   fileName: string
@@ -33,11 +35,28 @@ const FileInfo: React.FC<FileInfoProps> = ({
     >
       <div className="absolute top-2 left-4 right-1 md:top-4 md:left-6 md:right-4 flex justify-between items-center">
         <span className="font-semibold text-xl">{fileName}</span>
-        <div onTouchEnd={(e) => e.stopPropagation()}>
-          <IconButton id="exitButton" svgIcon={CloseIcon} onClick={exit} />
+        <div
+          className="flex gap-2 items-center"
+          onTouchEnd={(e) => e.stopPropagation()}
+        >
+          <IconButton
+            svgIcon={ExitIcon}
+            onClick={exit}
+            className="transform rotate-180"
+          />
+          {!isTouchDevice && (
+            <IconButton
+              id="exitButton"
+              svgIcon={CloseIcon}
+              onClick={toggleInfoMode}
+            />
+          )}
         </div>
       </div>
-      <div className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center">
+      <div
+        className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center"
+        onTouchEnd={(e) => e.stopPropagation()}
+      >
         <span className="font-semibold text-xl">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
