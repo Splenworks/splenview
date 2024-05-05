@@ -13,6 +13,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
 import LongTouchDiv from "./LongTouchDiv"
+import { isTouchDevice } from "./utils/isTouchDevice"
 
 i18n
   .use(LanguageDetector)
@@ -41,7 +42,6 @@ function App() {
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
   const { t } = useTranslation()
-  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
 
   const initialize = () => {
     setFileList([])
@@ -93,7 +93,6 @@ function App() {
     return () => {
       document.removeEventListener("contextmenu", handleContextmenu)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const hash = useMemo(
