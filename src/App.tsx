@@ -14,6 +14,7 @@ import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
 import LongTouchDiv from "./LongTouchDiv"
 import { isTouchDevice } from "./utils/isTouchDevice"
+import PressTab from "./PressTab"
 
 i18n
   .use(LanguageDetector)
@@ -42,6 +43,12 @@ function App() {
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
   const { t } = useTranslation()
+  const [showTabMessage, setShowTabMessage] = useState(false)
+  const readMode =
+    !exited &&
+    fileList.length > 0 &&
+    currentIndex < fileList.length &&
+    currentIndex >= 0
 
   const initialize = () => {
     setFileList([])
@@ -160,12 +167,20 @@ function App() {
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
   }, [currentIndex])
 
-  if (
-    !exited &&
-    fileList.length > 0 &&
-    currentIndex < fileList.length &&
-    currentIndex >= 0
-  ) {
+  useEffect(() => {
+    if (readMode) {
+      setShowTabMessage(true)
+      const hideTimer = setTimeout(() => {
+        setShowTabMessage(false)
+      }, 5000)
+
+      return () => {
+        clearTimeout(hideTimer)
+      }
+    }
+  }, [readMode])
+
+  if (readMode) {
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
       <div id="imageViewer">
@@ -178,21 +193,21 @@ function App() {
             exit={exit}
             toggleInfoMode={toggleInfoMode}
           />
+        ) : isTouchDevice ? (
+          <>
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+              onTouchEnd={goPrevious}
+              onLongTouched={toggleInfoMode}
+            />
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+              onTouchEnd={goNext}
+              onLongTouched={toggleInfoMode}
+            />
+          </>
         ) : (
-          isTouchDevice && (
-            <>
-              <LongTouchDiv
-                className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-                onTouchEnd={goPrevious}
-                onLongTouched={toggleInfoMode}
-              />
-              <LongTouchDiv
-                className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-                onTouchEnd={goNext}
-                onLongTouched={toggleInfoMode}
-              />
-            </>
-          )
+          showTabMessage && <PressTab />
         )}
       </div>
     )
