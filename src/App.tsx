@@ -134,6 +134,7 @@ function App() {
           if ((isMac && event.metaKey) || (!isMac && event.altKey)) {
             toggleFullScreen()
             setInfoMode(false)
+            setShowTabMessage(false)
           }
         }
       }
@@ -175,6 +176,10 @@ function App() {
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
   }, [currentIndex])
+
+  useEffect(() => {
+    setShowTabMessage(false)
+  }, [currentIndex, infoMode])
 
   useEffect(() => {
     if (readMode) {
