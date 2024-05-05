@@ -29,10 +29,10 @@ const PressTab: React.FC = () => {
       <p
         className={twJoin(
           "px-8 py-4 text-white bg-neutral-900 transition-opacity duration-500 ease-in-out",
-          showMessage ? "opacity-70" : "opacity-0",
+          showMessage ? "opacity-80" : "opacity-0",
         )}
       >
-        Press [tab] to see the information
+        Press [tab] to reveal more information
       </p>
     </div>
   )
