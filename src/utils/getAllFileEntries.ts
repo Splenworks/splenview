@@ -2,9 +2,9 @@
 export async function getAllFileEntries(
   dataTransferItemList: DataTransferItemList,
 ) {
-  let fileEntries: FileSystemEntry[] = []
+  const fileEntries: FileSystemEntry[] = []
   // Use BFS to traverse entire directory/file structure
-  let queue: FileSystemEntry[] = []
+  const queue: FileSystemEntry[] = []
   // Unfortunately dataTransferItemList is not iterable i.e. no forEach
   for (let i = 0; i < dataTransferItemList.length; i++) {
     // Note webkitGetAsEntry a non-standard feature and may change
@@ -15,7 +15,7 @@ export async function getAllFileEntries(
     }
   }
   while (queue.length > 0) {
-    let entry = queue.shift()
+    const entry = queue.shift()
     if (entry?.isFile) {
       fileEntries.push(entry)
     } else if (entry?.isDirectory) {
@@ -30,7 +30,7 @@ export async function getAllFileEntries(
 async function readAllDirectoryEntries(
   directoryReader: FileSystemDirectoryReader,
 ) {
-  let entries: FileSystemEntry[] = []
+  const entries: FileSystemEntry[] = []
   let readEntries = await readEntriesPromise(directoryReader)
   while (readEntries.length > 0) {
     entries.push(...readEntries)
