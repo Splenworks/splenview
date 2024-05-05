@@ -1,6 +1,9 @@
 import React from "react"
 import IconButton from "./IconButton"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
+import { ReactComponent as FullscreenIcon } from "./assets/expand.svg"
+import { ReactComponent as ExitFullscreenIcon } from "./assets/compress.svg"
 
 interface FileInfoProps {
   fileName: string
@@ -17,6 +20,8 @@ const FileInfo: React.FC<FileInfoProps> = ({
   exit,
   toggleInfoMode,
 }) => {
+  const isFullScreen = document.fullscreenElement !== null
+
   return (
     <div
       className="absolute inset-0 text-white transition-opacity duration-300 ease-in-out"
@@ -36,6 +41,23 @@ const FileInfo: React.FC<FileInfoProps> = ({
         <span className="font-semibold text-xl">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
+        {isFullScreen ? (
+          <IconButton
+            svgIcon={ExitFullscreenIcon}
+            onClick={() => {
+              toggleFullScreen()
+              toggleInfoMode()
+            }}
+          />
+        ) : (
+          <IconButton
+            svgIcon={FullscreenIcon}
+            onClick={() => {
+              toggleFullScreen()
+              toggleInfoMode()
+            }}
+          />
+        )}
       </div>
     </div>
   )

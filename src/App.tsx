@@ -163,7 +163,7 @@ function App() {
   ) {
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
-      <>
+      <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
         {infoMode ? (
           <FileInfo
@@ -191,7 +191,7 @@ function App() {
             />
           </>
         )}
-      </>
+      </div>
     )
   }
 
