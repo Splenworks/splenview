@@ -5,9 +5,14 @@
   "dragDropArea": {
     "dropHere": "Drop here",
     "mainMessage": "Drag and drop any <u>images</u> here!",
-    "subMessage": "You can even drop multiple <u>zip files</u> or <u>folders</u>."
+    "subMessage": "You can even drop multiple <u>zip files</u> or <u>folders</u>.",
+    "noImageFilesFound": "No image files found."
   },
   "footer": {
     "checkOutProduct": "Check out our other product <link />"
+  },
+  "messages": {
+    "reachedEnd": "You have reached the end of the list.",
+    "reachedBeginning": "You have reached the beginning of the list."
   }
 }

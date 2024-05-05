@@ -8,10 +8,15 @@ import Header from "./Header"
 import { hashCode } from "./utils/hashCode"
 import { parseJsonObj } from "./utils/parseJsonObj"
 import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
+import { initReactI18next, useTranslation } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
+import LongTouchDiv from "./LongTouchDiv"
+import { isTouchDevice } from "./utils/isTouchDevice"
+import PressTab from "./PressTab"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
+import { isMac } from "./utils/isMac"
 
 i18n
   .use(LanguageDetector)
@@ -39,6 +44,13 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(-1)
   const [infoMode, setInfoMode] = useState(false)
   const [readyToExit, setReadyToExit] = useState(false)
+  const { t } = useTranslation()
+  const [showTabMessage, setShowTabMessage] = useState(false)
+  const readMode =
+    !exited &&
+    fileList.length > 0 &&
+    currentIndex < fileList.length &&
+    currentIndex >= 0
 
   const initialize = () => {
     setFileList([])
@@ -47,13 +59,19 @@ function App() {
     setReadyToExit(false)
   }
 
+  const exit = () => {
+    setInfoMode(false)
+    setReadyToExit(false)
+    setExited(true)
+  }
+
   const goNext = () => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
       setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
-      alert("You have reached the end of the list.")
+      alert(t("messages.reachedEnd"))
       setReadyToExit(true)
     } else {
       initialize()
@@ -66,12 +84,25 @@ function App() {
       setInfoMode(false)
       setReadyToExit(false)
     } else if (!readyToExit) {
-      alert("You have reached the beginning of the list.")
+      alert(t("messages.reachedBeginning"))
       setReadyToExit(true)
     } else {
       initialize()
     }
   }
+
+  useEffect(() => {
+    const handleContextmenu = (e: MouseEvent) => {
+      // Disable right-click context menu on touch devices
+      if (isTouchDevice) {
+        e.preventDefault()
+      }
+    }
+    document.addEventListener("contextmenu", handleContextmenu)
+    return () => {
+      document.removeEventListener("contextmenu", handleContextmenu)
+    }
+  }, [])
 
   const hash = useMemo(
     () =>
@@ -96,9 +127,15 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          setInfoMode(false)
-          setReadyToExit(false)
-          setExited(true)
+          exit()
+        } else if (readMode && event.key === "Enter") {
+          // Command + Enter (Mac)
+          // Alt + Enter (Windows)
+          if ((isMac && event.metaKey) || (!isMac && event.altKey)) {
+            toggleFullScreen()
+            setInfoMode(false)
+            setShowTabMessage(false)
+          }
         }
       }
     }
@@ -140,25 +177,53 @@ function App() {
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
   }, [currentIndex])
 
-  if (
-    !exited &&
-    fileList.length > 0 &&
-    currentIndex < fileList.length &&
-    currentIndex >= 0
-  ) {
+  useEffect(() => {
+    setShowTabMessage(false)
+  }, [currentIndex, infoMode])
+
+  useEffect(() => {
+    if (readMode) {
+      setShowTabMessage(true)
+      const hideTimer = setTimeout(() => {
+        setShowTabMessage(false)
+      }, 5000)
+
+      return () => {
+        clearTimeout(hideTimer)
+      }
+    }
+  }, [readMode])
+
+  if (readMode) {
+    const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
-      <>
+      <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
-        {infoMode && <FileInfo fileName={fileList[currentIndex].displayName} />}
-        <div
-          className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-          onTouchStart={goPrevious}
-        />
-        <div
-          className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-          onTouchStart={goNext}
-        />
-      </>
+        {infoMode ? (
+          <FileInfo
+            fileName={fileList[currentIndex].displayName}
+            pageIndex={currentIndex}
+            totalPages={fileList.length}
+            exit={exit}
+            toggleInfoMode={toggleInfoMode}
+          />
+        ) : isTouchDevice ? (
+          <>
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+              onTouchEnd={goPrevious}
+              onLongTouched={toggleInfoMode}
+            />
+            <LongTouchDiv
+              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+              onTouchEnd={goNext}
+              onLongTouched={toggleInfoMode}
+            />
+          </>
+        ) : (
+          showTabMessage && <PressTab />
+        )}
+      </div>
     )
   }
 
