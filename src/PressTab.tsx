@@ -28,7 +28,7 @@ const PressTab: React.FC = () => {
     <div className="fixed top-4 left-0 right-0 flex justify-center">
       <p
         className={twJoin(
-          "px-8 py-4 text-white bg-neutral-900 transition-opacity duration-500 ease-in-out",
+          "px-8 py-4 text-white font-semibold bg-neutral-900 transition-opacity duration-500 ease-in-out",
           showMessage ? "opacity-80" : "opacity-0",
         )}
       >
