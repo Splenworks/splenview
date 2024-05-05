@@ -25,11 +25,11 @@ const PressTab: React.FC = () => {
   }, [])
 
   return (
-    <div className="fixed top-4 left-0 right-0 flex justify-center">
+    <div className="fixed top-8 left-0 right-0 flex justify-center">
       <p
         className={twJoin(
-          "px-8 py-4 text-white font-semibold bg-neutral-900 transition-opacity duration-500 ease-in-out",
-          showMessage ? "opacity-80" : "opacity-0",
+          "px-8 py-3 text-white font-semibold bg-neutral-900 transition-opacity duration-500 ease-in-out",
+          showMessage ? "opacity-75" : "opacity-0",
         )}
       >
         Press [tab] to reveal more information
