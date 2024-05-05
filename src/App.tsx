@@ -93,6 +93,7 @@ function App() {
     return () => {
       document.removeEventListener("contextmenu", handleContextmenu)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const hash = useMemo(
