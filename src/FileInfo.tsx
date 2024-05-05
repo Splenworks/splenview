@@ -4,12 +4,16 @@ import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
 
 interface FileInfoProps {
   fileName: string
+  pageIndex: number
+  totalPages: number
   exit: () => void
   toggleInfoMode: () => void
 }
 
 const FileInfo: React.FC<FileInfoProps> = ({
   fileName,
+  pageIndex,
+  totalPages,
   exit,
   toggleInfoMode,
 }) => {
@@ -27,6 +31,11 @@ const FileInfo: React.FC<FileInfoProps> = ({
         <div onTouchEnd={(e) => e.stopPropagation()}>
           <IconButton id="exitButton" svgIcon={CloseIcon} onClick={exit} />
         </div>
+      </div>
+      <div className="absolute bottom-4 left-6 right-4 flex justify-between items-center">
+        <span className="font-semibold text-xl">
+          {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
+        </span>
       </div>
     </div>
   )

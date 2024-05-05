@@ -168,6 +168,8 @@ function App() {
         {infoMode ? (
           <FileInfo
             fileName={fileList[currentIndex].displayName}
+            pageIndex={currentIndex}
+            totalPages={fileList.length}
             exit={() => {
               setInfoMode(false)
               setReadyToExit(false)
