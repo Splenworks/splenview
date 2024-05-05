@@ -15,6 +15,8 @@ import koTranslation from "./assets/translations/ko.json"
 import LongTouchDiv from "./LongTouchDiv"
 import { isTouchDevice } from "./utils/isTouchDevice"
 import PressTab from "./PressTab"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
+import { isMac } from "./utils/isMac"
 
 i18n
   .use(LanguageDetector)
@@ -126,6 +128,13 @@ function App() {
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
           exit()
+        } else if (readMode && event.key === "Enter") {
+          // Command + Enter (Mac)
+          // Alt + Enter (Windows)
+          if ((isMac && event.metaKey) || (!isMac && event.altKey)) {
+            toggleFullScreen()
+            setInfoMode(false)
+          }
         }
       }
     }
