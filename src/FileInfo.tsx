@@ -31,13 +31,13 @@ const FileInfo: React.FC<FileInfoProps> = ({
       }}
       onTouchEnd={toggleInfoMode}
     >
-      <div className="absolute top-4 left-6 right-4 flex justify-between items-center">
+      <div className="absolute top-2 left-4 right-1 md:top-4 md:left-6 md:right-4 flex justify-between items-center">
         <span className="font-semibold text-xl">{fileName}</span>
         <div onTouchEnd={(e) => e.stopPropagation()}>
           <IconButton id="exitButton" svgIcon={CloseIcon} onClick={exit} />
         </div>
       </div>
-      <div className="absolute bottom-4 left-6 right-4 flex justify-between items-center">
+      <div className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center">
         <span className="font-semibold text-xl">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
