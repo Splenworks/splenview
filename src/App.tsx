@@ -50,6 +50,12 @@ function App() {
     setReadyToExit(false)
   }
 
+  const exit = () => {
+    setInfoMode(false)
+    setReadyToExit(false)
+    setExited(true)
+  }
+
   const goNext = () => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
@@ -112,9 +118,7 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          setInfoMode(false)
-          setReadyToExit(false)
-          setExited(true)
+          exit()
         }
       }
     }
@@ -171,11 +175,7 @@ function App() {
             fileName={fileList[currentIndex].displayName}
             pageIndex={currentIndex}
             totalPages={fileList.length}
-            exit={() => {
-              setInfoMode(false)
-              setReadyToExit(false)
-              setExited(true)
-            }}
+            exit={exit}
             toggleInfoMode={toggleInfoMode}
           />
         ) : (
