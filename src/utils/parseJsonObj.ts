@@ -1,6 +1,6 @@
 export const parseJsonObj = (
   jsonString: string | null,
-): { [key: string]: any } => {
+): { [key: string]: unknown } => {
   if (!jsonString) return {}
   try {
     const ret = JSON.parse(jsonString)
