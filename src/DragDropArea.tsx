@@ -92,6 +92,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         <input
           type="file"
           multiple
+          accept="image/*, .zip"
           hidden
           ref={fileInputRef}
           onChange={handleFileInputChange}
