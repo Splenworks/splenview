@@ -161,6 +161,7 @@ function App() {
     currentIndex < fileList.length &&
     currentIndex >= 0
   ) {
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
       <div id="imageViewer">
@@ -178,18 +179,20 @@ function App() {
             toggleInfoMode={toggleInfoMode}
           />
         ) : (
-          <>
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-              onTouchEnd={goPrevious}
-              onLongTouched={toggleInfoMode}
-            />
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-              onTouchEnd={goNext}
-              onLongTouched={toggleInfoMode}
-            />
-          </>
+          isTouchDevice && (
+            <>
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+                onTouchEnd={goPrevious}
+                onLongTouched={toggleInfoMode}
+              />
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+                onTouchEnd={goNext}
+                onLongTouched={toggleInfoMode}
+              />
+            </>
+          )
         )}
       </div>
     )
