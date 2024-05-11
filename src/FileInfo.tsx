@@ -5,7 +5,7 @@ import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
 import { ReactComponent as ExitIcon } from "./assets/exit.svg"
 import { ReactComponent as FullscreenIcon } from "./assets/expand.svg"
 import { ReactComponent as ExitFullscreenIcon } from "./assets/compress.svg"
-import { isTouchDevice } from "./utils/isTouchDevice"
+import { useMediaQuery } from "usehooks-ts"
 
 interface FileInfoProps {
   fileName: string
@@ -22,6 +22,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   exit,
   toggleInfoMode,
 }) => {
+  const isTouchDevice = useMediaQuery("(pointer: coarse)")
   const isFullScreen = document.fullscreenElement !== null
 
   return (

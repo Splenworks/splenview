@@ -14,10 +14,10 @@ import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
 import jaTranslation from "./assets/translations/ja.json"
 import LongTouchDiv from "./LongTouchDiv"
-import { isTouchDevice } from "./utils/isTouchDevice"
 import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
+import { useMediaQuery } from "usehooks-ts"
 
 i18n
   .use(LanguageDetector)
@@ -55,6 +55,7 @@ function App() {
     fileList.length > 0 &&
     currentIndex < fileList.length &&
     currentIndex >= 0
+  const isTouchDevice = useMediaQuery("(pointer: coarse)")
 
   const initialize = () => {
     setFileList([])
@@ -106,7 +107,7 @@ function App() {
     return () => {
       document.removeEventListener("contextmenu", handleContextmenu)
     }
-  }, [])
+  }, [isTouchDevice])
 
   const hash = useMemo(
     () =>
