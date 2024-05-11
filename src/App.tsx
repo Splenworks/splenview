@@ -134,7 +134,11 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          exit()
+          if (infoMode) {
+            setInfoMode(false)
+          } else {
+            exit()
+          }
         } else if (readMode && event.key === "Enter") {
           // Command + Enter (Mac)
           // Alt + Enter (Windows)
@@ -160,7 +164,7 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown)
       // window.removeEventListener("wheel", handleMouseWheel)
     }
-  }, [fileList, currentIndex, readyToExit, readMode])
+  }, [fileList, currentIndex, readyToExit, readMode, infoMode])
 
   useEffect(() => {
     if (fileList.length === 0) return
