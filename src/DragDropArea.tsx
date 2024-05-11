@@ -100,7 +100,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="px-4 pb-4 text-black dark:text-white pointer-events-none">
+          <div className="px-4 pb-12 text-black dark:text-white pointer-events-none">
             {dragging ? (
               <p className="text-xl font-bold text-center text-gray-50 dark:text-white shadow-gray-600 dark:shadow-black [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)]">
                 <Trans i18nKey="dragDropArea.dropHere" />
@@ -108,7 +108,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
             ) : (
               <div className="flex flex-col items-center justify-center">
                 <PhotoIcon className="mb-8 w-24 h-24 text-pink-900 dark:text-pink-700" />
-                <p className="mb-4 text-xl font-bold text-center">
+                <p className="mb-4 text-xl text-center font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
                     components={{
@@ -116,13 +116,16 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
                     }}
                   />
                 </p>
-                <p className="text-lg text-center">
+                <p className="mb-4 text-lg text-center font-semibold">
                   <Trans
                     i18nKey="dragDropArea.subMessage"
                     components={{
                       u: <span className="text-pink-900 dark:text-pink-700" />,
                     }}
                   />
+                </p>
+                <p className="text-center">
+                  <Trans i18nKey="dragDropArea.neverStoreYourData" />
                 </p>
               </div>
             )}
