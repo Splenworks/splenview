@@ -78,6 +78,7 @@ function App() {
     } else if (!readyToExit) {
       alert(t("messages.reachedEnd"))
       setReadyToExit(true)
+      setInfoMode(true)
     } else {
       initialize()
     }
@@ -91,6 +92,7 @@ function App() {
     } else if (!readyToExit) {
       alert(t("messages.reachedBeginning"))
       setReadyToExit(true)
+      setInfoMode(true)
     } else {
       exit()
     }
