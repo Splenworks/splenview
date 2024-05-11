@@ -92,7 +92,7 @@ function App() {
       alert(t("messages.reachedBeginning"))
       setReadyToExit(true)
     } else {
-      initialize()
+      exit()
     }
   }
 
