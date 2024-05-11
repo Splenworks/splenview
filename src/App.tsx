@@ -80,7 +80,7 @@ function App() {
       setReadyToExit(true)
       setInfoMode(true)
     } else {
-      initialize()
+      exit()
     }
   }
 
