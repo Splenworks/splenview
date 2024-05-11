@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { twJoin } from "tailwind-merge"
 
 const PressTab: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,7 +34,7 @@ const PressTab: React.FC = () => {
           showMessage ? "opacity-75" : "opacity-0",
         )}
       >
-        Press [tab] to reveal more information
+        {t("messages.pressTab")}
       </p>
     </div>
   )

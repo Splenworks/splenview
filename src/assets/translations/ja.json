@@ -1,6 +1,6 @@
 {
   "header": {
-    "goBack": "帰る"
+    "goBack": "戻る"
   },
   "dragDropArea": {
     "dropHere": "ここにドロップしてください",
@@ -13,6 +13,7 @@
   },
   "messages": {
     "reachedEnd": "リストの最後です。",
-    "reachedBeginning": "リストの最初です。"
+    "reachedBeginning": "リストの最初です。",
+    "pressTab": "[tab]を押すと詳細情報が表示されます。"
   }
 }

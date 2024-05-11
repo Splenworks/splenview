@@ -13,6 +13,7 @@
   },
   "messages": {
     "reachedEnd": "마지막 이미지입니다.",
-    "reachedBeginning": "첫번째 이미지입니다."
+    "reachedBeginning": "첫번째 이미지입니다.",
+    "pressTab": "자세한 정보를 보려면 [tab]을 누르세요."
   }
 }
