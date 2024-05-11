@@ -119,7 +119,7 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (fileList.length > 0) {
+      if (fileList.length > 0 && readMode) {
         if (
           event.key === "ArrowRight" ||
           event.key === "ArrowDown" ||
@@ -158,7 +158,7 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown)
       // window.removeEventListener("wheel", handleMouseWheel)
     }
-  }, [fileList, currentIndex, readyToExit])
+  }, [fileList, currentIndex, readyToExit, readMode])
 
   useEffect(() => {
     if (fileList.length === 0) return
