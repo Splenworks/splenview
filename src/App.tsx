@@ -57,12 +57,12 @@ function App() {
     currentIndex >= 0
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
 
-  const initialize = () => {
-    setFileList([])
-    setCurrentIndex(-1)
-    setInfoMode(false)
-    setReadyToExit(false)
-  }
+  // const initialize = () => {
+  //   setFileList([])
+  //   setCurrentIndex(-1)
+  //   setInfoMode(false)
+  //   setReadyToExit(false)
+  // }
 
   const exit = () => {
     setInfoMode(false)
