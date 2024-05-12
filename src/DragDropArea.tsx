@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { twJoin } from "tailwind-merge"
+import { twJoin, twMerge } from "tailwind-merge"
 import {
   getImageFiles,
   getImageFilesFromDataTransfer,
@@ -11,9 +11,13 @@ import { Trans, useTranslation } from "react-i18next"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
+  isTouchDevice: boolean
 }
 
-const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
+const DragDropArea: React.FC<DragDropAreaProps> = ({
+  setFileList,
+  isTouchDevice,
+}) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
@@ -100,7 +104,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="px-4 pb-12 text-black dark:text-white pointer-events-none">
+          <div
+            className={twMerge(
+              "px-4 text-black dark:text-white pointer-events-none",
+              !isTouchDevice && "pb-12",
+            )}
+          >
             {dragging ? (
               <p className="text-xl font-bold text-center text-gray-50 dark:text-white shadow-gray-600 dark:shadow-black [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)]">
                 <Trans i18nKey="dragDropArea.dropHere" />
@@ -124,9 +133,11 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
                     }}
                   />
                 </p>
-                <p className="text-center">
-                  <Trans i18nKey="dragDropArea.neverStoreYourData" />
-                </p>
+                {!isTouchDevice && (
+                  <p className="text-center">
+                    <Trans i18nKey="dragDropArea.neverStoreYourData" />
+                  </p>
+                )}
               </div>
             )}
           </div>
