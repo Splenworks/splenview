@@ -245,7 +245,7 @@ function App() {
   return (
     <>
       <Header exited={exited} goBack={() => setExited(false)} />
-      <DragDropArea setFileList={setFileList} isTouchDevice={isTouchDevice} />
+      <DragDropArea setFileList={setFileList} />
       <Footer />
     </>
   )

@@ -8,20 +8,18 @@ import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
 import { PhotoIcon } from "@heroicons/react/24/solid"
 import { Trans, useTranslation } from "react-i18next"
+import { useMediaQuery } from "usehooks-ts"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
-  isTouchDevice: boolean
 }
 
-const DragDropArea: React.FC<DragDropAreaProps> = ({
-  setFileList,
-  isTouchDevice,
-}) => {
+const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const smallScreen = useMediaQuery("(max-width: 640px) or (max-height: 640px)")
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -107,7 +105,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({
           <div
             className={twMerge(
               "px-4 text-black dark:text-white pointer-events-none",
-              !isTouchDevice && "pb-12",
+              !smallScreen && "pb-12",
             )}
           >
             {dragging ? (
@@ -133,7 +131,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({
                     }}
                   />
                 </p>
-                {!isTouchDevice && (
+                {!smallScreen && (
                   <p className="text-center">
                     <Trans i18nKey="dragDropArea.neverStoreYourData" />
                   </p>
