@@ -57,12 +57,12 @@ function App() {
     currentIndex >= 0
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
 
-  // const initialize = () => {
-  //   setFileList([])
-  //   setCurrentIndex(-1)
-  //   setInfoMode(false)
-  //   setReadyToExit(false)
-  // }
+  const initialize = () => {
+    setFileList([])
+    setCurrentIndex(-1)
+    setInfoMode(false)
+    setReadyToExit(false)
+  }
 
   const exit = () => {
     setInfoMode(false)
@@ -80,7 +80,7 @@ function App() {
       setReadyToExit(true)
       setInfoMode(true)
     } else {
-      exit()
+      initialize()
     }
   }
 
@@ -94,7 +94,7 @@ function App() {
       setReadyToExit(true)
       setInfoMode(true)
     } else {
-      exit()
+      initialize()
     }
   }
 
@@ -135,7 +135,11 @@ function App() {
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
           if (infoMode) {
-            setInfoMode(false)
+            if (readyToExit) {
+              initialize()
+            } else {
+              setInfoMode(false)
+            }
           } else {
             exit()
           }
