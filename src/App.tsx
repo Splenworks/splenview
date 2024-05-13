@@ -65,9 +65,13 @@ function App() {
   }
 
   const exit = () => {
-    setInfoMode(false)
-    setReadyToExit(false)
-    setExited(true)
+    if (readyToExit) {
+      initialize()
+    } else {
+      setInfoMode(false)
+      setReadyToExit(false)
+      setExited(true)
+    }
   }
 
   const goNext = () => {
@@ -134,12 +138,10 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          if (infoMode) {
-            if (readyToExit) {
-              initialize()
-            } else {
-              setInfoMode(false)
-            }
+          if (readyToExit) {
+            initialize()
+          } else if (infoMode) {
+            setInfoMode(false)
           } else {
             exit()
           }
