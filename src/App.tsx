@@ -12,11 +12,12 @@ import { initReactI18next, useTranslation } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import enTranslation from "./assets/translations/en.json"
 import koTranslation from "./assets/translations/ko.json"
+import jaTranslation from "./assets/translations/ja.json"
 import LongTouchDiv from "./LongTouchDiv"
-import { isTouchDevice } from "./utils/isTouchDevice"
 import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
+import { useMediaQuery } from "usehooks-ts"
 
 i18n
   .use(LanguageDetector)
@@ -28,6 +29,9 @@ i18n
       },
       ko: {
         translation: koTranslation,
+      },
+      ja: {
+        translation: jaTranslation,
       },
     },
     fallbackLng: "en",
@@ -51,6 +55,7 @@ function App() {
     fileList.length > 0 &&
     currentIndex < fileList.length &&
     currentIndex >= 0
+  const isTouchDevice = useMediaQuery("(pointer: coarse)")
 
   const initialize = () => {
     setFileList([])
@@ -60,9 +65,13 @@ function App() {
   }
 
   const exit = () => {
-    setInfoMode(false)
-    setReadyToExit(false)
-    setExited(true)
+    if (readyToExit) {
+      initialize()
+    } else {
+      setInfoMode(false)
+      setReadyToExit(false)
+      setExited(true)
+    }
   }
 
   const goNext = () => {
@@ -73,6 +82,7 @@ function App() {
     } else if (!readyToExit) {
       alert(t("messages.reachedEnd"))
       setReadyToExit(true)
+      setInfoMode(true)
     } else {
       initialize()
     }
@@ -86,6 +96,7 @@ function App() {
     } else if (!readyToExit) {
       alert(t("messages.reachedBeginning"))
       setReadyToExit(true)
+      setInfoMode(true)
     } else {
       initialize()
     }
@@ -102,7 +113,7 @@ function App() {
     return () => {
       document.removeEventListener("contextmenu", handleContextmenu)
     }
-  }, [])
+  }, [isTouchDevice])
 
   const hash = useMemo(
     () =>
@@ -114,7 +125,7 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (fileList.length > 0) {
+      if (fileList.length > 0 && readMode) {
         if (
           event.key === "ArrowRight" ||
           event.key === "ArrowDown" ||
@@ -127,7 +138,13 @@ function App() {
           event.preventDefault()
           setInfoMode((mode) => !mode)
         } else if (event.key === "Escape") {
-          exit()
+          if (readyToExit) {
+            initialize()
+          } else if (infoMode) {
+            setInfoMode(false)
+          } else {
+            exit()
+          }
         } else if (readMode && event.key === "Enter") {
           // Command + Enter (Mac)
           // Alt + Enter (Windows)
@@ -153,7 +170,7 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown)
       // window.removeEventListener("wheel", handleMouseWheel)
     }
-  }, [fileList, currentIndex, readyToExit])
+  }, [fileList, currentIndex, readyToExit, readMode, infoMode])
 
   useEffect(() => {
     if (fileList.length === 0) return
@@ -207,22 +224,23 @@ function App() {
             exit={exit}
             toggleInfoMode={toggleInfoMode}
           />
-        ) : isTouchDevice ? (
-          <>
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-              onTouchEnd={goPrevious}
-              onLongTouched={toggleInfoMode}
-            />
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-              onTouchEnd={goNext}
-              onLongTouched={toggleInfoMode}
-            />
-          </>
         ) : (
-          showTabMessage && <PressTab />
+          isTouchDevice && (
+            <>
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+                onTouchEnd={goPrevious}
+                onLongTouched={toggleInfoMode}
+              />
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+                onTouchEnd={goNext}
+                onLongTouched={toggleInfoMode}
+              />
+            </>
+          )
         )}
+        {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
       </div>
     )
   }
