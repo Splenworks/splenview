@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { twJoin } from "tailwind-merge"
 
-const PressTab: React.FC = () => {
+interface PressTabProps {
+  isTouchDevice: boolean
+}
+
+const PressTab: React.FC<PressTabProps> = ({ isTouchDevice }) => {
   const [showMessage, setShowMessage] = useState(false)
   const { t } = useTranslation()
 
@@ -34,7 +38,7 @@ const PressTab: React.FC = () => {
           showMessage ? "opacity-75" : "opacity-0",
         )}
       >
-        {t("messages.pressTab")}
+        {isTouchDevice ? t("messages.longTouch") : t("messages.pressTab")}
       </p>
     </div>
   )

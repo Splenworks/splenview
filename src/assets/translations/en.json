@@ -15,6 +15,7 @@
   "messages": {
     "reachedEnd": "You have reached the end of the list.",
     "reachedBeginning": "You have reached the beginning of the list.",
-    "pressTab": "Press [tab] to reveal more information."
+    "pressTab": "Press [tab] to reveal more information.",
+    "longTouch": "Press anywhere for a long time to reveal more information."
   }
 }

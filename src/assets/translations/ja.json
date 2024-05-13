@@ -15,6 +15,7 @@
   "messages": {
     "reachedEnd": "リストの最後です。",
     "reachedBeginning": "リストの最初です。",
-    "pressTab": "[tab]を押すと詳細情報が表示されます。"
+    "pressTab": "[tab]を押すと詳細情報が表示されます。",
+    "longTouch": "長押しすると、詳細情報が表示されます。"
   }
 }

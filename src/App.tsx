@@ -224,22 +224,23 @@ function App() {
             exit={exit}
             toggleInfoMode={toggleInfoMode}
           />
-        ) : isTouchDevice ? (
-          <>
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
-              onTouchEnd={goPrevious}
-              onLongTouched={toggleInfoMode}
-            />
-            <LongTouchDiv
-              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
-              onTouchEnd={goNext}
-              onLongTouched={toggleInfoMode}
-            />
-          </>
         ) : (
-          showTabMessage && <PressTab />
+          isTouchDevice && (
+            <>
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+                onTouchEnd={goPrevious}
+                onLongTouched={toggleInfoMode}
+              />
+              <LongTouchDiv
+                className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+                onTouchEnd={goNext}
+                onLongTouched={toggleInfoMode}
+              />
+            </>
+          )
         )}
+        {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
       </div>
     )
   }
