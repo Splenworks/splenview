@@ -178,14 +178,14 @@ function App() {
     } else {
       setCurrentIndex(0)
     }
-  }, [fileList, hash])
+  }, [fileList, hash, currentIndexes])
 
   useEffect(() => {
     if (currentIndex === -1) return
     if (currentIndex === 0 && !currentIndexes[hash]) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
-  }, [currentIndex])
+  }, [currentIndex, currentIndexes])
 
   useEffect(() => {
     setShowTabMessage(false)
