@@ -1,10 +1,10 @@
 import React from "react"
 import IconButton from "./IconButton"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
-import { ReactComponent as CloseIcon } from "./assets/xmark.svg"
-import { ReactComponent as ExitIcon } from "./assets/exit.svg"
-import { ReactComponent as FullscreenIcon } from "./assets/expand.svg"
-import { ReactComponent as ExitFullscreenIcon } from "./assets/compress.svg"
+import CloseIcon from "./assets/xmark.svg?react"
+import ExitIcon from "./assets/exit.svg?react"
+import FullscreenIcon from "./assets/expand.svg?react"
+import ExitFullscreenIcon from "./assets/compress.svg?react"
 import { useMediaQuery } from "usehooks-ts"
 
 interface FileInfoProps {
