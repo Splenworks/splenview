@@ -175,7 +175,7 @@ function App() {
     } else {
       setCurrentIndex(0)
     }
-  }, [fileList])
+  }, [fileList, hash])
 
   useEffect(() => {
     if (currentIndex === -1) return
