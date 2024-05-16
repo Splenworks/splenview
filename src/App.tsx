@@ -40,8 +40,6 @@ i18n
     },
   })
 
-const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
-
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
   const [exited, setExited] = useState(false)
@@ -56,6 +54,11 @@ function App() {
     currentIndex < fileList.length &&
     currentIndex >= 0
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
+
+  const currentIndexes = useMemo(
+    () => parseJsonObj(localStorage.getItem("currentIndexes")),
+    [],
+  )
 
   const initialize = () => {
     setFileList([])
