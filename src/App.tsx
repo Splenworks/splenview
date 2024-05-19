@@ -148,17 +148,22 @@ function App() {
           } else {
             exit()
           }
-        } else if (readMode && event.key === "Enter") {
+        } else if (
+          readMode &&
+          (event.key === "f" ||
+            (isMac && event.metaKey && event.key === "Enter") ||
+            (!isMac && event.altKey && event.key === "Enter"))
+        ) {
+          // F
           // Command + Enter (Mac)
           // Alt + Enter (Windows)
-          if ((isMac && event.metaKey) || (!isMac && event.altKey)) {
-            toggleFullScreen()
-            setInfoMode(false)
-            setShowTabMessage(false)
-          }
+          toggleFullScreen()
+          setInfoMode(false)
+          setShowTabMessage(false)
         }
       }
     }
+
     window.addEventListener("keydown", handleKeyDown)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
