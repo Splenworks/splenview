@@ -16,6 +16,6 @@
     "reachedEnd": "リストの最後です。",
     "reachedBeginning": "リストの最初です。",
     "pressTab": "[tab]を押すと詳細情報が表示されます。",
-    "longTouch": "長押しすると、詳細情報が表示されます。"
+    "longTouch1": "1秒以上長く押すと、詳細情報が表示されます。"
   }
 }

@@ -7,40 +7,12 @@ import { FileList } from "./types/FileList"
 import Header from "./Header"
 import { hashCode } from "./utils/hashCode"
 import { parseJsonObj } from "./utils/parseJsonObj"
-import i18n from "i18next"
-import { initReactI18next, useTranslation } from "react-i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
-import enTranslation from "./assets/translations/en.json"
-import koTranslation from "./assets/translations/ko.json"
-import jaTranslation from "./assets/translations/ja.json"
+import { useTranslation } from "react-i18next"
 import LongTouchDiv from "./LongTouchDiv"
 import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
 import { useMediaQuery } from "usehooks-ts"
-
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: {
-        translation: enTranslation,
-      },
-      ko: {
-        translation: koTranslation,
-      },
-      ja: {
-        translation: jaTranslation,
-      },
-    },
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
-  })
-
-const currentIndexes = parseJsonObj(localStorage.getItem("currentIndexes"))
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -56,6 +28,11 @@ function App() {
     currentIndex < fileList.length &&
     currentIndex >= 0
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
+
+  const currentIndexes = useMemo(
+    () => parseJsonObj(localStorage.getItem("currentIndexes")),
+    [],
+  )
 
   const initialize = () => {
     setFileList([])
@@ -145,30 +122,25 @@ function App() {
           } else {
             exit()
           }
-        } else if (readMode && event.key === "Enter") {
+        } else if (
+          readMode &&
+          (event.key === "f" ||
+            (isMac && event.metaKey && event.key === "Enter") ||
+            (!isMac && event.altKey && event.key === "Enter"))
+        ) {
+          // F
           // Command + Enter (Mac)
           // Alt + Enter (Windows)
-          if ((isMac && event.metaKey) || (!isMac && event.altKey)) {
-            toggleFullScreen()
-            setInfoMode(false)
-            setShowTabMessage(false)
-          }
+          toggleFullScreen()
+          setInfoMode(false)
+          setShowTabMessage(false)
         }
       }
     }
-    // const handleMouseWheel = (event: WheelEvent) => {
-    //   const lastIndex = fileList.length - 1
-    //   if (event.deltaY > 0) {
-    //     setCurrentIndex(currentIndex < lastIndex ? currentIndex + 1 : lastIndex)
-    //   } else if (event.deltaY < 0) {
-    //     setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : 0)
-    //   }
-    // }
+
     window.addEventListener("keydown", handleKeyDown)
-    // window.addEventListener("wheel", handleMouseWheel)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
-      // window.removeEventListener("wheel", handleMouseWheel)
     }
   }, [fileList, currentIndex, readyToExit, readMode, infoMode])
 
@@ -185,14 +157,14 @@ function App() {
     } else {
       setCurrentIndex(0)
     }
-  }, [fileList])
+  }, [fileList, hash, currentIndexes])
 
   useEffect(() => {
     if (currentIndex === -1) return
     if (currentIndex === 0 && !currentIndexes[hash]) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
-  }, [currentIndex])
+  }, [currentIndex, currentIndexes])
 
   useEffect(() => {
     setShowTabMessage(false)
@@ -213,12 +185,14 @@ function App() {
 
   if (readMode) {
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
+    console.log(fileList[currentIndex].file)
     return (
       <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
         {infoMode ? (
           <FileInfo
             fileName={fileList[currentIndex].displayName}
+            file={fileList[currentIndex].file}
             pageIndex={currentIndex}
             totalPages={fileList.length}
             exit={exit}
