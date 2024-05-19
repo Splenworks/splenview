@@ -7,38 +7,12 @@ import { FileList } from "./types/FileList"
 import Header from "./Header"
 import { hashCode } from "./utils/hashCode"
 import { parseJsonObj } from "./utils/parseJsonObj"
-import i18n from "i18next"
-import { initReactI18next, useTranslation } from "react-i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
-import enTranslation from "./assets/translations/en.json"
-import koTranslation from "./assets/translations/ko.json"
-import jaTranslation from "./assets/translations/ja.json"
+import { useTranslation } from "react-i18next"
 import LongTouchDiv from "./LongTouchDiv"
 import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
 import { useMediaQuery } from "usehooks-ts"
-
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: {
-        translation: enTranslation,
-      },
-      ko: {
-        translation: koTranslation,
-      },
-      ja: {
-        translation: jaTranslation,
-      },
-    },
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
-  })
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
