@@ -185,12 +185,14 @@ function App() {
 
   if (readMode) {
     const toggleInfoMode = () => setInfoMode((prev) => !prev)
+    console.log(fileList[currentIndex].file)
     return (
       <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
         {infoMode ? (
           <FileInfo
             fileName={fileList[currentIndex].displayName}
+            file={fileList[currentIndex].file}
             pageIndex={currentIndex}
             totalPages={fileList.length}
             exit={exit}

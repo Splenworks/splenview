@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import IconButton from "./IconButton"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import CloseIcon from "./assets/xmark.svg?react"
@@ -9,6 +9,7 @@ import { useMediaQuery } from "usehooks-ts"
 
 interface FileInfoProps {
   fileName: string
+  file: File
   pageIndex: number
   totalPages: number
   exit: () => void
@@ -17,6 +18,7 @@ interface FileInfoProps {
 
 const FileInfo: React.FC<FileInfoProps> = ({
   fileName,
+  file,
   pageIndex,
   totalPages,
   exit,
@@ -24,6 +26,17 @@ const FileInfo: React.FC<FileInfoProps> = ({
 }) => {
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
   const isFullScreen = document.fullscreenElement !== null
+
+  const fileSizeString = useCallback((size: number) => {
+    if (size < 1024) return `${size} bytes`
+    const units = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+    let unitIndex = 0
+    while (size >= 1024) {
+      size /= 1024
+      unitIndex++
+    }
+    return `${parseFloat(size.toFixed(2))} ${units[unitIndex]}`
+  }, [])
 
   return (
     <div
@@ -34,12 +47,15 @@ const FileInfo: React.FC<FileInfoProps> = ({
       }}
       onTouchEnd={toggleInfoMode}
     >
-      <div className="absolute top-2 left-4 right-1 md:top-4 md:left-6 md:right-4 flex justify-between items-center">
-        <span className="font-semibold text-xl">{fileName}</span>
-        <div
-          className="flex gap-2 items-center"
-          onTouchEnd={(e) => e.stopPropagation()}
-        >
+      <div className="absolute top-2 left-4 right-1 md:top-4 md:left-6 md:right-4 flex justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="font-semibold text-xl">{fileName}</span>
+          <span className="font-semibold">
+            {new Date(file.lastModified).toLocaleString()}
+          </span>
+          <span className="font-semibold">{fileSizeString(file.size)}</span>
+        </div>
+        <div className="flex gap-2" onTouchEnd={(e) => e.stopPropagation()}>
           <IconButton
             svgIcon={ExitIcon}
             onClick={exit}
