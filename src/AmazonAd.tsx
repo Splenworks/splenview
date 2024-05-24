@@ -1,7 +1,8 @@
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import CloseIcon from "./assets/xmark.svg?react"
-import FilledStar from "./assets/star-filled.svg?react"
+import AmazonStars from "./AmazonStars"
+import { toCommaSeparatedString } from "./utils/number"
 
 const adItems = [
   {
@@ -52,11 +53,10 @@ const AmazonAd: FC = () => {
         <div className="flex flex-col gap-2">
           <span className="font-semibold">{adItem.name}</span>
           <div className="flex items-center">
-            {new Array(5).fill(0).map((_, i) => (
-              <FilledStar key={i} className="w-4 h-4 text-yellow-500" />
-            ))}
+            <AmazonStars rating={adItem.stars} />
             <span className="ml-1 text-sm font-semibold text-gray-500">
-              {adItem.stars} ({adItem.reviews} reviews)
+              {adItem.stars.toFixed(1)} (
+              {toCommaSeparatedString(adItem.reviews)} ratings)
             </span>
           </div>
           <p className="mt-2 mb-3 line-clamp-4 text-gray-500 text-sm leading-5">
