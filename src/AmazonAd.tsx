@@ -40,31 +40,35 @@ const AmazonAd: FC = () => {
         />
       </div>
       <div
-        className="p-5 bg-white flex gap-6 cursor-pointer"
+        className="py-5 px-8 md:px-5 bg-white flex flex-col gap-3 md:flex-row md:gap-6 cursor-pointer"
         onClick={() => window.open(adItem.url, "_blank")}
       >
         <div className="flex items-center justify-center">
           <img
             src={adItem.image}
             alt={adItem.name}
-            className="min-w-40 max-w-60 max-h-60 object-contain"
+            className="min-w-40 max-w-60 max-h-40 md:max-h-60 object-contain"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <span className="font-semibold">{adItem.name}</span>
-          <div className="flex items-center">
-            <AmazonStars rating={adItem.stars} />
-            <span className="ml-1 text-sm font-semibold text-gray-500">
-              {adItem.stars.toFixed(1)} (
-              {toCommaSeparatedString(adItem.reviews)} ratings)
+          <p className="font-semibold text-center md:text-left line-clamp-2 md:line-clamp-3 lg:line-clamp-2">
+            {adItem.name}
+          </p>
+          <div className="flex justify-center md:justify-start items-center gap-1 text-sm font-semibold text-gray-500">
+            <div className="flex items-center">
+              <AmazonStars rating={adItem.stars} />
+            </div>
+            <span>{adItem.stars.toFixed(1)}</span>
+            <span className="md:hidden lg:block">
+              ({toCommaSeparatedString(adItem.reviews)} ratings)
             </span>
           </div>
           <p className="mt-2 mb-3 line-clamp-4 text-gray-500 text-sm leading-5">
             {adItem.desc}
           </p>
-          <div>
+          <div className="flex justify-center md:justify-start">
             <button
-              className="text-sm bg-yellow-500 text-black px-3 py-2 rounded transition-colors duration-300 ease-in-out mb-1"
+              className="text-sm bg-yellow-500 text-black px-3 py-2 rounded transition-colors duration-300 ease-in-out mb-1 whitespace-nowrap"
               style={{ fontStretch: "condensed" }}
             >
               Shop on Amazon
