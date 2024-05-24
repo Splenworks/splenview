@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import CloseIcon from "./assets/xmark.svg?react"
 import FilledStar from "./assets/star-filled.svg?react"
@@ -12,13 +12,20 @@ const adItem = {
   reviews: 564,
 }
 
-const AmazonAd: React.FC = () => {
+const AmazonAd: FC = () => {
   const { t } = useTranslation()
+  const [closed, setClosed] = useState(false)
+
+  if (closed) return null
+
   return (
     <div className="fixed min-w-80 max-w-xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl">
       <div className="bg-pink-900 text-white flex justify-center items-center relative h-8">
         <span className="text-sm font-semibold">{t("others.ad")}</span>
-        <CloseIcon className="absolute right-2 w-3 h-3 ml-2" />
+        <CloseIcon
+          className="absolute right-2 w-3 h-3 ml-2 cursor-pointer"
+          onClick={() => setClosed(true)}
+        />
       </div>
       <div
         className="p-4 bg-white flex gap-6 cursor-pointer"
