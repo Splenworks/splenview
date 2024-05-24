@@ -3,18 +3,29 @@ import { useTranslation } from "react-i18next"
 import CloseIcon from "./assets/xmark.svg?react"
 import FilledStar from "./assets/star-filled.svg?react"
 
-const adItem = {
-  name: "Akira Toriyama's Manga Theater Hardcover - December 7, 2021",
-  desc: "An extensive collection of imaginative and action-packed short stories from the creator of Dragon Ball, Akira Toriyama! From Akira Toriyama, the legendary manga creator of Dragon Ball, comes this special collection of short stories spanning the first few decades of his career. Serving as both a collection of his early works and a history of his life as a manga writer and illustrator, this giant tome is packed with everything you could ever want as a fan of classic shonen manga.",
-  image: "https://m.media-amazon.com/images/I/81UUncqngWL._SL1500_.jpg",
-  url: "https://amzn.to/44VchvH",
-  stars: 4.8,
-  reviews: 564,
-}
+const adItems = [
+  {
+    name: "Akira Toriyama's Manga Theater Hardcover - December 7, 2021",
+    desc: "An extensive collection of imaginative and action-packed short stories from the creator of Dragon Ball, Akira Toriyama! From Akira Toriyama, the legendary manga creator of Dragon Ball, comes this special collection of short stories spanning the first few decades of his career. Serving as both a collection of his early works and a history of his life as a manga writer and illustrator, this giant tome is packed with everything you could ever want as a fan of classic shonen manga.",
+    image: "https://m.media-amazon.com/images/I/81UUncqngWL._SL1500_.jpg",
+    url: "https://amzn.to/44VchvH",
+    stars: 4.8,
+    reviews: 564,
+  },
+  {
+    name: "Comfyable Puffy Laptop Sleeve 13 Inch 14 Inch, Quilted Puffer Carrying Case, Pillow Case Compatible for MacBook Air M2 M1 M3 2024, MacBook Pro 13 Inch 14 Inch",
+    desc: '13 INCH CASE - Our laptop case is compatible for all MacBook Air 13 M3 2024 A3113 & MacBook Pro 13" laptops including M2 2022 M1 2020 2021, and also compatible with MacBook Pro 14-inch M3 /M2 Pro/Max 2023 & M1 2021 A2442. Interior dimensions: 13.5 x 9.5 x 0.7 Inches, Exterior dimensions: 14 x 10 x 0.7 inches, allows for use with a wide variety of laptop and tablet models.',
+    image: "https://m.media-amazon.com/images/I/71rljFajxwL._AC_SX679_.jpg",
+    url: "https://amzn.to/3X12Ad4",
+    stars: 4.7,
+    reviews: 197,
+  },
+]
 
 const AmazonAd: FC = () => {
   const { t } = useTranslation()
   const [closed, setClosed] = useState(false)
+  const adItem = adItems[Math.floor(Math.random() * adItems.length)]
 
   if (closed) return null
 
