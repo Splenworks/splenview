@@ -13,6 +13,7 @@ import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
 import { useMediaQuery } from "usehooks-ts"
+import AmazonAd from "./AmazonAd"
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -214,6 +215,7 @@ function App() {
           )
         )}
         {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
+        {readyToExit && currentIndex === fileList.length - 1 && <AmazonAd />}
       </div>
     )
   }

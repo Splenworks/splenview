@@ -17,5 +17,8 @@
     "reachedBeginning": "첫번째 이미지입니다.",
     "pressTab": "자세한 정보를 보려면 [tab]을 누르세요.",
     "longTouch": "자세한 정보를 보려면 1초 이상 길게 누르세요."
+  },
+  "others": {
+    "ad": "광고"
   }
 }
