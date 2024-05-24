@@ -215,7 +215,9 @@ function App() {
           )
         )}
         {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
-        {readyToExit && currentIndex === fileList.length - 1 && <AmazonAd />}
+        {readyToExit &&
+          currentIndex === fileList.length - 1 &&
+          fileList.length > 10 && <AmazonAd />}
       </div>
     )
   }
