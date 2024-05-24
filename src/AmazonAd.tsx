@@ -35,7 +35,7 @@ const AmazonAd: FC = () => {
           <img
             src={adItem.image}
             alt={adItem.name}
-            className="h-full max-w-60 max-h-60 object-contain"
+            className="min-w-40 max-w-60 max-h-60 object-contain"
           />
         </div>
         <div className="flex flex-col gap-2">
