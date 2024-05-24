@@ -31,7 +31,7 @@ const AmazonAd: FC = () => {
   if (closed) return null
 
   return (
-    <div className="fixed min-w-80 max-w-xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl">
+    <div className="fixed min-w-80 max-w-xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl shadow-black">
       <div className="bg-pink-900 text-white flex justify-center items-center relative h-8">
         <span className="text-sm font-semibold">{t("others.ad")}</span>
         <CloseIcon
