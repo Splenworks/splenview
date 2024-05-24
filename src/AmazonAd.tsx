@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import CloseIcon from "./assets/xmark.svg?react"
 import FilledStar from "./assets/star-filled.svg?react"
