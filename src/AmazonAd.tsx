@@ -39,7 +39,7 @@ const AmazonAd: FC = () => {
         />
       </div>
       <div
-        className="p-4 bg-white flex gap-6 cursor-pointer"
+        className="p-5 bg-white flex gap-6 cursor-pointer"
         onClick={() => window.open(adItem.url, "_blank")}
       >
         <div className="flex items-center justify-center">
