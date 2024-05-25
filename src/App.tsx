@@ -143,7 +143,17 @@ function App() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [fileList, currentIndex, readyToExit, readMode, infoMode])
+  }, [
+    fileList,
+    currentIndex,
+    readyToExit,
+    readMode,
+    infoMode,
+    exit,
+    goNext,
+    goPrevious,
+    initialize,
+  ])
 
   useEffect(() => {
     if (fileList.length === 0) return
