@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import DragDropArea from "./DragDropArea"
 import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
@@ -35,14 +35,14 @@ function App() {
     [],
   )
 
-  const initialize = () => {
+  const initialize = useCallback(() => {
     setFileList([])
     setCurrentIndex(-1)
     setInfoMode(false)
     setReadyToExit(false)
-  }
+  }, [])
 
-  const exit = () => {
+  const exit = useCallback(() => {
     if (readyToExit) {
       initialize()
     } else {
@@ -50,9 +50,9 @@ function App() {
       setReadyToExit(false)
       setExited(true)
     }
-  }
+  }, [readyToExit, initialize])
 
-  const goNext = () => {
+  const goNext = useCallback(() => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
       setInfoMode(false)
@@ -64,9 +64,9 @@ function App() {
     } else {
       initialize()
     }
-  }
+  }, [initialize, currentIndex, fileList, readyToExit, t])
 
-  const goPrevious = () => {
+  const goPrevious = useCallback(() => {
     if (currentIndex > 0) {
       setCurrentIndex((index) => index - 1)
       setInfoMode(false)
@@ -78,7 +78,7 @@ function App() {
     } else {
       initialize()
     }
-  }
+  }, [initialize, currentIndex, readyToExit, t])
 
   useEffect(() => {
     const handleContextmenu = (e: MouseEvent) => {
