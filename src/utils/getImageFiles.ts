@@ -10,7 +10,10 @@ const looksLikeImage = (fileName: string) => {
     lowerCaseFileName.endsWith(".jpeg") ||
     lowerCaseFileName.endsWith(".png") ||
     lowerCaseFileName.endsWith(".gif") ||
-    lowerCaseFileName.endsWith(".webp")
+    lowerCaseFileName.endsWith(".webp") ||
+    lowerCaseFileName.endsWith(".bmp") ||
+    lowerCaseFileName.endsWith(".ico") ||
+    lowerCaseFileName.endsWith(".svg")
   )
 }
 
