@@ -175,6 +175,8 @@ function App() {
     if (currentIndex === 0 && !currentIndexes[hash]) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
+    // If fileList/hash changes, currentIndex will change and this effect will run too.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, currentIndexes])
 
   useEffect(() => {
