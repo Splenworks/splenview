@@ -196,8 +196,9 @@ function App() {
     }
   }, [readMode])
 
+  const toggleInfoMode = useCallback(() => setInfoMode((prev) => !prev), [])
+
   if (readMode) {
-    const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
       <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
