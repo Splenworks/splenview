@@ -74,7 +74,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
         className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center"
         onTouchEnd={(e) => e.stopPropagation()}
       >
-        <span className="font-semibold text-xl  select-none">
+        <span className="font-semibold text-xl   select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
         {isFullScreen ? (
