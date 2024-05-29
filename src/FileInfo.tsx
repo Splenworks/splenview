@@ -77,23 +77,13 @@ const FileInfo: React.FC<FileInfoProps> = ({
         <span className="font-semibold text-xl select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
-        {isFullScreen ? (
-          <IconButton
-            svgIcon={ExitFullscreenIcon}
-            onClick={() => {
-              toggleFullScreen()
-              toggleInfoMode()
-            }}
-          />
-        ) : (
-          <IconButton
-            svgIcon={FullscreenIcon}
-            onClick={() => {
-              toggleFullScreen()
-              toggleInfoMode()
-            }}
-          />
-        )}
+        <IconButton
+          svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
+          onClick={() => {
+            toggleFullScreen()
+            toggleInfoMode()
+          }}
+        />
       </div>
     </div>
   )
