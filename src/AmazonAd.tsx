@@ -67,12 +67,15 @@ const AmazonAd: FC = () => {
             {adItem.desc}
           </p>
           <div className="flex justify-center md:justify-start">
-            <button
+            <a
               className="text-sm bg-yellow-500 text-black px-3 py-2 rounded transition-colors duration-300 ease-in-out mb-1 whitespace-nowrap"
               style={{ fontStretch: "condensed" }}
+              href={adItem.url}
+              target="_blank"
+              rel="noreferrer noopener nofollow sponsored"
             >
               Shop on Amazon
-            </button>
+            </a>
           </div>
         </div>
       </div>
