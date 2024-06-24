@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import DragDropArea from "./DragDropArea"
 import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
@@ -13,6 +13,7 @@ import PressTab from "./PressTab"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
 import { isMac } from "./utils/isMac"
 import { useMediaQuery } from "usehooks-ts"
+// import AmazonAd from "./AmazonAd"
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -34,14 +35,14 @@ function App() {
     [],
   )
 
-  const initialize = () => {
+  const initialize = useCallback(() => {
     setFileList([])
     setCurrentIndex(-1)
     setInfoMode(false)
     setReadyToExit(false)
-  }
+  }, [])
 
-  const exit = () => {
+  const exit = useCallback(() => {
     if (readyToExit) {
       initialize()
     } else {
@@ -49,9 +50,9 @@ function App() {
       setReadyToExit(false)
       setExited(true)
     }
-  }
+  }, [readyToExit, initialize])
 
-  const goNext = () => {
+  const goNext = useCallback(() => {
     if (currentIndex < fileList.length - 1) {
       setCurrentIndex((index) => index + 1)
       setInfoMode(false)
@@ -63,9 +64,9 @@ function App() {
     } else {
       initialize()
     }
-  }
+  }, [initialize, currentIndex, fileList, readyToExit, t])
 
-  const goPrevious = () => {
+  const goPrevious = useCallback(() => {
     if (currentIndex > 0) {
       setCurrentIndex((index) => index - 1)
       setInfoMode(false)
@@ -77,7 +78,7 @@ function App() {
     } else {
       initialize()
     }
-  }
+  }, [initialize, currentIndex, readyToExit, t])
 
   useEffect(() => {
     const handleContextmenu = (e: MouseEvent) => {
@@ -142,7 +143,17 @@ function App() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [fileList, currentIndex, readyToExit, readMode, infoMode])
+  }, [
+    fileList,
+    currentIndex,
+    readyToExit,
+    readMode,
+    infoMode,
+    exit,
+    goNext,
+    goPrevious,
+    initialize,
+  ])
 
   useEffect(() => {
     if (fileList.length === 0) return
@@ -164,6 +175,8 @@ function App() {
     if (currentIndex === 0 && !currentIndexes[hash]) return
     currentIndexes[hash] = currentIndex
     localStorage.setItem("currentIndexes", JSON.stringify(currentIndexes))
+    // If fileList/hash changes, currentIndex will change and this effect will run too.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, currentIndexes])
 
   useEffect(() => {
@@ -183,8 +196,9 @@ function App() {
     }
   }, [readMode])
 
+  const toggleInfoMode = useCallback(() => setInfoMode((prev) => !prev), [])
+
   if (readMode) {
-    const toggleInfoMode = () => setInfoMode((prev) => !prev)
     return (
       <div id="imageViewer">
         <ImageViewer file={fileList[currentIndex].file} />
@@ -214,6 +228,9 @@ function App() {
           )
         )}
         {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
+        {/*readyToExit &&
+          currentIndex === fileList.length - 1 &&
+          fileList.length > 10 && <AmazonAd />*/}
       </div>
     )
   }

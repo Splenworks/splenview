@@ -74,26 +74,16 @@ const FileInfo: React.FC<FileInfoProps> = ({
         className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center"
         onTouchEnd={(e) => e.stopPropagation()}
       >
-        <span className="font-semibold text-xl">
+        <span className="font-semibold text-xl select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
-        {isFullScreen ? (
-          <IconButton
-            svgIcon={ExitFullscreenIcon}
-            onClick={() => {
-              toggleFullScreen()
-              toggleInfoMode()
-            }}
-          />
-        ) : (
-          <IconButton
-            svgIcon={FullscreenIcon}
-            onClick={() => {
-              toggleFullScreen()
-              toggleInfoMode()
-            }}
-          />
-        )}
+        <IconButton
+          svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
+          onClick={() => {
+            toggleFullScreen()
+            toggleInfoMode()
+          }}
+        />
       </div>
     </div>
   )
