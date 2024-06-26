@@ -32,8 +32,8 @@ const Tooltip: React.FC<PropsWithChildren<TooltipProps>> = ({
             className={twJoin(
               "absolute transform",
               place === "top"
-                ? "bottom-full -translate-y-1"
-                : "top-full translate-y-1",
+                ? "bottom-full -translate-y-2"
+                : "top-full translate-y-2",
               align === "left"
                 ? "left-0"
                 : align === "right"
@@ -48,11 +48,10 @@ const Tooltip: React.FC<PropsWithChildren<TooltipProps>> = ({
           </div>
           <div
             className={twJoin(
-              "absolute border-solid border-opacity-50 border-x-transparent border-x-4 left-1/2 transform -translate-x-1/2",
+              "absolute border-solid border-opacity-50 border-x-transparent border-x-[6px] left-1/2 transform -translate-x-1/2",
               place === "bottom"
-                ? "border-b-zinc-500 border-b-4 border-t-0"
-                : "border-t-zinc-500 border-t-4 border-b-0",
-              place === "top" ? "bottom-full" : "top-full",
+                ? "border-b-zinc-500 border-b-[6px] border-t-0 top-full translate-y-[2px]"
+                : "border-t-zinc-500 border-t-[6px] border-b-0 bottom-full -translate-y-[2px]",
             )}
           ></div>
         </>
