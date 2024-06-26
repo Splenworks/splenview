@@ -6,6 +6,8 @@ import ExitIcon from "./assets/exit.svg?react"
 import FullscreenIcon from "./assets/expand.svg?react"
 import ExitFullscreenIcon from "./assets/compress.svg?react"
 import { useMediaQuery } from "usehooks-ts"
+import Tooltip from "./Tooltip"
+import { useTranslation } from "react-i18next"
 
 interface FileInfoProps {
   fileName: string
@@ -26,6 +28,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
 }) => {
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
   const isFullScreen = document.fullscreenElement !== null
+  const { t } = useTranslation()
 
   const fileSizeString = useCallback((size: number) => {
     if (size < 1024) return `${size} bytes`
@@ -56,18 +59,26 @@ const FileInfo: React.FC<FileInfoProps> = ({
           <span className="font-semibold">{fileSizeString(file.size)}</span>
         </div>
         <div className="flex gap-2" onTouchEnd={(e) => e.stopPropagation()}>
-          <IconButton
-            svgIcon={ExitIcon}
-            onClick={exit}
-            className="transform rotate-180"
-          />
-          {!isTouchDevice && (
-            <IconButton
-              id="exitButton"
-              svgIcon={CloseIcon}
-              onClick={toggleInfoMode}
-            />
-          )}
+          <div>
+            <Tooltip text={t("others.exit")} place="bottom">
+              <IconButton
+                svgIcon={ExitIcon}
+                onClick={exit}
+                className="transform rotate-180"
+              />
+            </Tooltip>
+          </div>
+          <div>
+            {!isTouchDevice && (
+              <Tooltip text={t("others.close")} place="bottom" align="right">
+                <IconButton
+                  id="exitButton"
+                  svgIcon={CloseIcon}
+                  onClick={toggleInfoMode}
+                />
+              </Tooltip>
+            )}
+          </div>
         </div>
       </div>
       <div
@@ -77,13 +88,23 @@ const FileInfo: React.FC<FileInfoProps> = ({
         <span className="font-semibold text-xl select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
-        <IconButton
-          svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
-          onClick={() => {
-            toggleFullScreen()
-            toggleInfoMode()
-          }}
-        />
+        <div>
+          <Tooltip
+            text={
+              isFullScreen ? t("others.exitFullscreen") : t("others.fullscreen")
+            }
+            place="top"
+            align="right"
+          >
+            <IconButton
+              svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
+              onClick={() => {
+                toggleFullScreen()
+                toggleInfoMode()
+              }}
+            />
+          </Tooltip>
+        </div>
       </div>
     </div>
   )

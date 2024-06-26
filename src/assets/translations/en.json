@@ -19,6 +19,10 @@
     "longTouch": "Press anywhere for 1 second to reveal more information."
   },
   "others": {
-    "ad": "Ad"
+    "ad": "Ad",
+    "close": "Close",
+    "exit": "Exit",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen"
   }
 }

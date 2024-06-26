@@ -19,6 +19,10 @@
     "longTouch1": "1秒以上長く押すと、詳細情報が表示されます。"
   },
   "others": {
-    "ad": "広告"
+    "ad": "広告",
+    "close": "閉じる",
+    "exit": "終了",
+    "fullscreen": "フルスクリーン",
+    "exitFullscreen": "フルスクリーンを終了"
   }
 }

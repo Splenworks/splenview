@@ -6,9 +6,9 @@ import {
 } from "./utils/getImageFiles"
 import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
-import { PhotoIcon } from "@heroicons/react/24/solid"
 import { Trans, useTranslation } from "react-i18next"
 import { useMediaQuery } from "usehooks-ts"
+import PictureIcon from "./assets/picture.svg?react"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -114,7 +114,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <PhotoIcon className="mb-8 w-24 h-24 text-pink-900 dark:text-pink-700" />
+                <PictureIcon className="mb-8 w-24 h-24" />
                 <p className="mb-4 text-xl text-center font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
