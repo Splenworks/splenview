@@ -7,6 +7,7 @@ import FullscreenIcon from "./assets/expand.svg?react"
 import ExitFullscreenIcon from "./assets/compress.svg?react"
 import { useMediaQuery } from "usehooks-ts"
 import Tooltip from "./Tooltip"
+import { useTranslation } from "react-i18next"
 
 interface FileInfoProps {
   fileName: string
@@ -27,6 +28,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
 }) => {
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
   const isFullScreen = document.fullscreenElement !== null
+  const { t } = useTranslation()
 
   const fileSizeString = useCallback((size: number) => {
     if (size < 1024) return `${size} bytes`
@@ -58,7 +60,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
         </div>
         <div className="flex gap-2" onTouchEnd={(e) => e.stopPropagation()}>
           <div>
-            <Tooltip text="Exit" place="bottom">
+            <Tooltip text={t("others.exit")} place="bottom">
               <IconButton
                 svgIcon={ExitIcon}
                 onClick={exit}
@@ -68,7 +70,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
           </div>
           <div>
             {!isTouchDevice && (
-              <Tooltip text="Close" place="bottom" align="right">
+              <Tooltip text={t("others.close")} place="bottom" align="right">
                 <IconButton
                   id="exitButton"
                   svgIcon={CloseIcon}
@@ -88,7 +90,9 @@ const FileInfo: React.FC<FileInfoProps> = ({
         </span>
         <div>
           <Tooltip
-            text={isFullScreen ? "Exit Fullscreen" : "Fullscreen"}
+            text={
+              isFullScreen ? t("others.exitFullscreen") : t("others.fullscreen")
+            }
             place="top"
             align="right"
           >

@@ -19,6 +19,10 @@
     "longTouch": "자세한 정보를 보려면 1초 이상 길게 누르세요."
   },
   "others": {
-    "ad": "광고"
+    "ad": "광고",
+    "close": "닫기",
+    "exit": "나가기",
+    "fullscreen": "전체화면",
+    "exitFullscreen": "전체화면 나가기"
   }
 }
