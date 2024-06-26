@@ -8,7 +8,7 @@ import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
 import { Trans, useTranslation } from "react-i18next"
 import { useMediaQuery } from "usehooks-ts"
-import PictureIcon from "./assets/favicon.svg?react"
+import PictureIcon from "./assets/picture.svg?react"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
