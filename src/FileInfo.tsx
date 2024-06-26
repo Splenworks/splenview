@@ -6,6 +6,7 @@ import ExitIcon from "./assets/exit.svg?react"
 import FullscreenIcon from "./assets/expand.svg?react"
 import ExitFullscreenIcon from "./assets/compress.svg?react"
 import { useMediaQuery } from "usehooks-ts"
+import Tooltip from "./Tooltip"
 
 interface FileInfoProps {
   fileName: string
@@ -56,18 +57,26 @@ const FileInfo: React.FC<FileInfoProps> = ({
           <span className="font-semibold">{fileSizeString(file.size)}</span>
         </div>
         <div className="flex gap-2" onTouchEnd={(e) => e.stopPropagation()}>
-          <IconButton
-            svgIcon={ExitIcon}
-            onClick={exit}
-            className="transform rotate-180"
-          />
-          {!isTouchDevice && (
-            <IconButton
-              id="exitButton"
-              svgIcon={CloseIcon}
-              onClick={toggleInfoMode}
-            />
-          )}
+          <div>
+            <Tooltip text="Exit" place="bottom">
+              <IconButton
+                svgIcon={ExitIcon}
+                onClick={exit}
+                className="transform rotate-180"
+              />
+            </Tooltip>
+          </div>
+          <div>
+            {!isTouchDevice && (
+              <Tooltip text="Close" place="bottom" align="right">
+                <IconButton
+                  id="exitButton"
+                  svgIcon={CloseIcon}
+                  onClick={toggleInfoMode}
+                />
+              </Tooltip>
+            )}
+          </div>
         </div>
       </div>
       <div
@@ -77,13 +86,21 @@ const FileInfo: React.FC<FileInfoProps> = ({
         <span className="font-semibold text-xl select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
-        <IconButton
-          svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
-          onClick={() => {
-            toggleFullScreen()
-            toggleInfoMode()
-          }}
-        />
+        <div>
+          <Tooltip
+            text={isFullScreen ? "Exit Fullscreen" : "Fullscreen"}
+            place="top"
+            align="right"
+          >
+            <IconButton
+              svgIcon={isFullScreen ? ExitFullscreenIcon : FullscreenIcon}
+              onClick={() => {
+                toggleFullScreen()
+                toggleInfoMode()
+              }}
+            />
+          </Tooltip>
+        </div>
       </div>
     </div>
   )
