@@ -18,11 +18,11 @@ const Tooltip: React.FC<PropsWithChildren<TooltipProps>> = ({
   }
 
   return (
-    <div className="relative cursor-pointer group">
-      {children}
+    <div className="relative cursor-pointer">
+      <div className="peer">{children}</div>
       <div
         className={twJoin(
-          "absolute transform hidden group-hover:block transition-transform duration-300 ease-in-out",
+          "absolute transform opacity-0 peer-hover:opacity-100 transition-opacity duration-300 ease-in-out",
           place === "top"
             ? "bottom-full -translate-y-2"
             : "top-full translate-y-2",
@@ -40,7 +40,7 @@ const Tooltip: React.FC<PropsWithChildren<TooltipProps>> = ({
       </div>
       <div
         className={twJoin(
-          "absolute border-solid border-opacity-50 border-x-transparent border-x-[6px] left-1/2 transform -translate-x-1/2 hidden group-hover:block transition-transform duration-300 ease-in-out",
+          "absolute border-solid border-opacity-50 border-x-transparent border-x-[6px] left-1/2 transform -translate-x-1/2 opacity-0 peer-hover:opacity-100 transition-opacity duration-300 ease-in-out",
           place === "bottom"
             ? "border-b-zinc-500 border-b-[6px] border-t-0 top-full translate-y-[2px]"
             : "border-t-zinc-500 border-t-[6px] border-b-0 bottom-full -translate-y-[2px]",
