@@ -23,7 +23,7 @@ const PressTab: React.FC<PressTabProps> = ({ isTouchDevice }) => {
   useEffect(() => {
     const hideTimer = setTimeout(() => {
       setShowMessage(false)
-    }, 4000)
+    }, 5000)
 
     return () => {
       clearTimeout(hideTimer)
