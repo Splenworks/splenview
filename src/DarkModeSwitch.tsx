@@ -1,11 +1,10 @@
-import { DarkModeSwitch as DarkModeSwitchIcon } from "react-toggle-dark-mode"
 import { useState } from "react"
 import { twJoin } from "tailwind-merge"
+import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
 
 const DarkModeSwitch = () => {
-  const [darkMode, setDarkMode] = useState(
-    document.documentElement.classList.contains("dark"),
-  )
+  const [darkMode, setDarkMode] = useState(getDarkmode())
   return (
     <div className="relative inline-block text-left w-[75px]">
       <input
@@ -16,13 +15,7 @@ const DarkModeSwitch = () => {
         checked={darkMode}
         onChange={() => {
           setDarkMode((darkMode) => !darkMode)
-          document.documentElement.classList.toggle("dark")
-          localStorage.setItem(
-            "theme",
-            document.documentElement.classList.contains("dark")
-              ? "dark"
-              : "light",
-          )
+          toggleDarkmode()
         }}
       />
       <label
@@ -39,13 +32,9 @@ const DarkModeSwitch = () => {
         />
         <span className="block w-6 m-[5px] bg-white absolute top-0 bottom-0 right-10 rounded-full transition-all duration-300 ease-in peer-checked:group-[]:right-0">
           <DarkModeSwitchIcon
-            size={16}
-            checked={darkMode}
+            darkMode={darkMode}
             sunColor="black"
             moonColor="black"
-            style={{ margin: "4px" }}
-            onChange={() => {}}
-            className="text-black"
           />
         </span>
       </label>
