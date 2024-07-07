@@ -1,13 +1,13 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import IconButton from "./IconButton"
 import { toggleFullScreen } from "./utils/toggleFullscreen"
-import CloseIcon from "./assets/xmark.svg?react"
 import ExitIcon from "./assets/exit.svg?react"
 import FullscreenIcon from "./assets/expand.svg?react"
 import ExitFullscreenIcon from "./assets/compress.svg?react"
-import { useMediaQuery } from "usehooks-ts"
 import Tooltip from "./Tooltip"
 import { useTranslation } from "react-i18next"
+import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
 
 interface FileInfoProps {
   fileName: string
@@ -26,9 +26,9 @@ const FileInfo: React.FC<FileInfoProps> = ({
   exit,
   toggleInfoMode,
 }) => {
-  const isTouchDevice = useMediaQuery("(pointer: coarse)")
   const isFullScreen = document.fullscreenElement !== null
   const { t } = useTranslation()
+  const [darkMode, setDarkMode] = useState(getDarkmode())
 
   const fileSizeString = useCallback((size: number) => {
     if (size < 1024) return `${size} bytes`
@@ -48,17 +48,36 @@ const FileInfo: React.FC<FileInfoProps> = ({
         background:
           "linear-gradient(to bottom, rgba(0,0,0,75%), rgba(0,0,0,0%), rgba(0,0,0,0%), rgba(0,0,0,75%)",
       }}
-      onTouchEnd={toggleInfoMode}
+      onMouseUp={toggleInfoMode}
     >
-      <div className="absolute top-2 left-4 right-1 md:top-4 md:left-6 md:right-4 flex justify-between">
-        <div className="flex flex-col gap-1">
+      <div className="absolute top-0 left-0 right-1 md:right-4 flex justify-between">
+        <div
+          className="pt-2 md:pt-4 pl-4 md:pl-6 flex flex-col gap-1"
+          onMouseUp={(e) => e.stopPropagation()}
+        >
           <span className="font-semibold text-xl">{fileName}</span>
           <span className="font-semibold">
             {new Date(file.lastModified).toLocaleString()}
           </span>
           <span className="font-semibold">{fileSizeString(file.size)}</span>
         </div>
-        <div className="flex gap-2" onTouchEnd={(e) => e.stopPropagation()}>
+        <div
+          className="pt-2 md:pt-4 flex gap-2"
+          onMouseUp={(e) => e.stopPropagation()}
+        >
+          <div>
+            <Tooltip text="Toggle Darkmode" place="bottom">
+              <IconButton
+                svgIcon={() => (
+                  <DarkModeSwitchIcon darkMode={darkMode} size={20} />
+                )}
+                onClick={() => {
+                  setDarkMode((darkMode) => !darkMode)
+                  toggleDarkmode()
+                }}
+              />
+            </Tooltip>
+          </div>
           <div>
             <Tooltip text={t("others.exit")} place="bottom">
               <IconButton
@@ -68,24 +87,13 @@ const FileInfo: React.FC<FileInfoProps> = ({
               />
             </Tooltip>
           </div>
-          <div>
-            {!isTouchDevice && (
-              <Tooltip text={t("others.close")} place="bottom" align="right">
-                <IconButton
-                  id="exitButton"
-                  svgIcon={CloseIcon}
-                  onClick={toggleInfoMode}
-                />
-              </Tooltip>
-            )}
-          </div>
         </div>
       </div>
       <div
         className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center"
-        onTouchEnd={(e) => e.stopPropagation()}
+        onMouseUp={(e) => e.stopPropagation()}
       >
-        <span className="font-semibold text-xl select-none">
+        <span className="font-semibold text-lg md:text-xl select-none">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
         <div>

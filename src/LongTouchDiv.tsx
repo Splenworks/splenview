@@ -17,11 +17,11 @@ const LongTouchDiv: React.FC<
       clearTimeout(timeout)
     }
 
-    document.addEventListener("touchend", handleTouchEnd)
+    document.addEventListener("mouseup", handleTouchEnd)
 
     return () => {
       clearTimeout(timeout)
-      document.removeEventListener("touchend", handleTouchEnd)
+      document.removeEventListener("mouseup", handleTouchEnd)
     }
   }
 
