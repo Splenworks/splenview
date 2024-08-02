@@ -217,17 +217,24 @@ function App() {
               className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
               onMouseUp={goPrevious}
               onLongTouched={toggleInfoMode}
-              style={{ cursor: currentIndex == 0 ? "nw-resize" : "w-resize" }}
+              style={{
+                cursor: isMac
+                  ? currentIndex == 0
+                    ? "nw-resize"
+                    : "w-resize"
+                  : "auto",
+              }}
             />
             <LongTouchDiv
               className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
               onMouseUp={goNext}
               onLongTouched={toggleInfoMode}
               style={{
-                cursor:
-                  currentIndex === fileList.length - 1
+                cursor: isMac
+                  ? currentIndex === fileList.length - 1
                     ? "ne-resize"
-                    : "e-resize",
+                    : "e-resize"
+                  : "auto",
               }}
             />
           </>
