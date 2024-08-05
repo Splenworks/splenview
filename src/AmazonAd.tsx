@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
-import CloseIcon from "./assets/xmark.svg?react"
+import CloseIcon from "./assets/icons/xmark.svg?react"
 import AmazonStars from "./AmazonStars"
 import { toCommaSeparatedString } from "./utils/number"
 
