@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react"
-import IconButton from "./IconButton"
-import { toggleFullScreen } from "./utils/toggleFullscreen"
+import { useTranslation } from "react-i18next"
+import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
 import ExitIcon from "./assets/icons/exit.svg?react"
 import FullscreenIcon from "./assets/icons/expand.svg?react"
-import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
-import Tooltip from "./Tooltip"
-import { useTranslation } from "react-i18next"
 import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import IconButton from "./IconButton"
+import Tooltip from "./Tooltip"
 import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
 
 interface FileInfoProps {
   fileName: string

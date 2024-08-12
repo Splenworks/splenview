@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
 import { twJoin, twMerge } from "tailwind-merge"
+import { useMediaQuery } from "usehooks-ts"
+import PictureIcon from "./assets/icons/picture.svg?react"
+import Spinner from "./Spinner"
+import { FileList } from "./types/FileList"
 import {
   getImageFiles,
   getImageFilesFromDataTransfer,
 } from "./utils/getImageFiles"
-import Spinner from "./Spinner"
-import { FileList } from "./types/FileList"
-import { Trans, useTranslation } from "react-i18next"
-import { useMediaQuery } from "usehooks-ts"
-import PictureIcon from "./assets/icons/picture.svg?react"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>

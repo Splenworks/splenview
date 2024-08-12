@@ -1,12 +1,12 @@
-import { StrictMode } from "react"
-import ReactDOM from "react-dom/client"
-import App from "./App.tsx"
 import i18n from "i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
-import enTranslation from "./assets/translations/en.json"
-import koTranslation from "./assets/translations/ko.json"
-import jaTranslation from "./assets/translations/ja.json"
+import { StrictMode } from "react"
+import ReactDOM from "react-dom/client"
 import { initReactI18next } from "react-i18next"
+import App from "./App.tsx"
+import enTranslation from "./assets/translations/en.json"
+import jaTranslation from "./assets/translations/ja.json"
+import koTranslation from "./assets/translations/ko.json"
 import "./index.css"
 
 i18n

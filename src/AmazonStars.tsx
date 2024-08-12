@@ -1,6 +1,6 @@
 import React from "react"
-import FilledStar from "./assets/icons/star-filled.svg?react"
 import EmptyStar from "./assets/icons/star-empty.svg?react"
+import FilledStar from "./assets/icons/star-filled.svg?react"
 import HalfStar from "./assets/icons/star-half.svg?react"
 
 interface AmazonStarsProps {

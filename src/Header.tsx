@@ -1,7 +1,7 @@
-import React from "react"
-import DarkModeSwitch from "./DarkModeSwitch"
 import { ArrowUturnLeftIcon } from "@heroicons/react/16/solid"
+import React from "react"
 import { useTranslation } from "react-i18next"
+import DarkModeSwitch from "./DarkModeSwitch"
 
 interface HeaderProps {
   exited: boolean
