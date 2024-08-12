@@ -17,11 +17,11 @@ const AmazonStars: React.FC<AmazonStarsProps> = ({ rating }) => {
   return (
     <>
       {new Array(filledStarCount).fill(0).map((_, i) => (
-        <FilledStar key={i} className="w-4 h-4 text-yellow-500" />
+        <FilledStar key={i} className="h-4 w-4 text-yellow-500" />
       ))}
-      {hasHalfStar && <HalfStar className="w-4 h-4 text-yellow-500" />}
+      {hasHalfStar && <HalfStar className="h-4 w-4 text-yellow-500" />}
       {new Array(emptyStarCount).fill(0).map((_, i) => (
-        <EmptyStar key={i} className="w-4 h-4 text-yellow-500" />
+        <EmptyStar key={i} className="h-4 w-4 text-yellow-500" />
       ))}
     </>
   )

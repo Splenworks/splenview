@@ -78,12 +78,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   }
 
   return (
-    <div className="fixed top-16 left-0 right-0 bottom-16 bg-white dark:bg-neutral-900">
+    <div className="fixed bottom-16 left-0 right-0 top-16 bg-white dark:bg-neutral-900">
       <div
         className={twJoin(
-          "absolute inset-x-8 md:inset-x-16 inset-y-0 rounded-xl border-dashed border-4 border-gray-300 cursor-pointer flex items-center justify-center transition-colors duration-300 ease-in-out",
+          "absolute inset-x-8 inset-y-0 flex cursor-pointer items-center justify-center rounded-xl border-4 border-dashed border-gray-300 transition-colors duration-300 ease-in-out md:inset-x-16",
           (dragging || loading) &&
-            "bg-neutral-200 dark:bg-neutral-600 border-pink-900 dark:border-pink-700",
+            "border-pink-900 bg-neutral-200 dark:border-pink-700 dark:bg-neutral-600",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -104,18 +104,18 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         ) : (
           <div
             className={twMerge(
-              "px-4 text-black dark:text-white pointer-events-none",
+              "pointer-events-none px-4 text-black dark:text-white",
               !smallScreen && "pb-12",
             )}
           >
             {dragging ? (
-              <p className="text-xl font-bold text-center text-gray-50 dark:text-white shadow-gray-600 dark:shadow-black [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)]">
+              <p className="text-center text-xl font-bold text-gray-50 shadow-gray-600 [text-shadow:_0_5px_5px_var(--tw-shadow-color,0.5)] dark:text-white dark:shadow-black">
                 <Trans i18nKey="dragDropArea.dropHere" />
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <PictureIcon className="mb-8 w-24 h-24" />
-                <p className="mb-4 text-xl text-center font-bold">
+                <PictureIcon className="mb-8 h-24 w-24" />
+                <p className="mb-4 text-center text-xl font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
                     components={{
@@ -123,7 +123,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
                     }}
                   />
                 </p>
-                <p className="mb-4 text-lg text-center font-semibold">
+                <p className="mb-4 text-center text-lg font-semibold">
                   <Trans
                     i18nKey="dragDropArea.subMessage"
                     components={{

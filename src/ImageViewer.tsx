@@ -8,11 +8,11 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ file }) => {
   const imageUrl = URL.createObjectURL(file)
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+    <div className="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center">
       <img
         src={imageUrl}
         alt={imageUrl}
-        className="object-contain max-w-full max-h-full min-w-full min-h-full"
+        className="max-h-full min-h-full min-w-full max-w-full object-contain"
       />
     </div>
   )
