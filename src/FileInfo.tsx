@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react"
-import IconButton from "./IconButton"
-import { toggleFullScreen } from "./utils/toggleFullscreen"
-import ExitIcon from "./assets/exit.svg?react"
-import FullscreenIcon from "./assets/expand.svg?react"
-import ExitFullscreenIcon from "./assets/compress.svg?react"
-import Tooltip from "./Tooltip"
 import { useTranslation } from "react-i18next"
+import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
+import ExitIcon from "./assets/icons/exit.svg?react"
+import FullscreenIcon from "./assets/icons/expand.svg?react"
 import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import IconButton from "./IconButton"
+import Tooltip from "./Tooltip"
 import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
 
 interface FileInfoProps {
   fileName: string
@@ -43,26 +43,26 @@ const FileInfo: React.FC<FileInfoProps> = ({
 
   return (
     <div
-      className="fixed top-0 bottom-0 left-0 right-0 text-white transition-opacity duration-300 ease-in-out"
+      className="fixed bottom-0 left-0 right-0 top-0 text-white transition-opacity duration-300 ease-in-out"
       style={{
         background:
           "linear-gradient(to bottom, rgba(0,0,0,75%), rgba(0,0,0,0%), rgba(0,0,0,0%), rgba(0,0,0,75%)",
       }}
       onMouseUp={toggleInfoMode}
     >
-      <div className="absolute top-0 left-0 right-1 md:right-4 flex justify-between">
+      <div className="absolute left-0 right-1 top-0 flex justify-between md:right-4">
         <div
-          className="pt-2 md:pt-4 pl-4 md:pl-6 flex flex-col gap-1"
+          className="flex flex-col gap-1 pl-4 pt-2 md:pl-6 md:pt-4"
           onMouseUp={(e) => e.stopPropagation()}
         >
-          <span className="font-semibold text-xl">{fileName}</span>
+          <span className="text-xl font-semibold">{fileName}</span>
           <span className="font-semibold">
             {new Date(file.lastModified).toLocaleString()}
           </span>
           <span className="font-semibold">{fileSizeString(file.size)}</span>
         </div>
         <div
-          className="pt-2 md:pt-4 flex gap-2"
+          className="flex gap-2 pt-2 md:pt-4"
           onMouseUp={(e) => e.stopPropagation()}
         >
           <div>
@@ -83,17 +83,17 @@ const FileInfo: React.FC<FileInfoProps> = ({
               <IconButton
                 svgIcon={ExitIcon}
                 onClick={exit}
-                className="transform rotate-180"
+                className="rotate-180 transform"
               />
             </Tooltip>
           </div>
         </div>
       </div>
       <div
-        className="absolute bottom-2 left-4 right-1 md:bottom-4 md:left-6 md:right-4 flex justify-between items-center"
+        className="absolute bottom-2 left-4 right-1 flex items-center justify-between md:bottom-4 md:left-6 md:right-4"
         onMouseUp={(e) => e.stopPropagation()}
       >
-        <span className="font-semibold text-lg md:text-xl select-none">
+        <span className="select-none text-lg font-semibold md:text-xl">
           {totalPages > 1 ? `${pageIndex + 1} / ${totalPages}` : ""}
         </span>
         <div>

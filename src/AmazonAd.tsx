@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
-import CloseIcon from "./assets/xmark.svg?react"
 import AmazonStars from "./AmazonStars"
+import CloseIcon from "./assets/icons/xmark.svg?react"
 import { toCommaSeparatedString } from "./utils/number"
 
 const adItems = [
@@ -31,30 +31,30 @@ const AmazonAd: FC = () => {
   if (closed) return null
 
   return (
-    <div className="fixed min-w-80 max-w-xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl shadow-black">
-      <div className="bg-pink-900 text-white flex justify-center items-center relative h-8">
+    <div className="fixed left-1/2 top-1/2 min-w-80 max-w-xl -translate-x-1/2 -translate-y-1/2 transform shadow-2xl shadow-black">
+      <div className="relative flex h-8 items-center justify-center bg-pink-900 text-white">
         <span className="text-sm font-semibold">{t("others.ad")}</span>
         <CloseIcon
-          className="absolute right-2 w-3 h-3 ml-2 cursor-pointer"
+          className="absolute right-2 ml-2 h-3 w-3 cursor-pointer"
           onClick={() => setClosed(true)}
         />
       </div>
       <div
-        className="py-5 px-8 md:px-5 bg-white flex flex-col gap-3 md:flex-row md:gap-6 cursor-pointer"
+        className="flex cursor-pointer flex-col gap-3 bg-white px-8 py-5 md:flex-row md:gap-6 md:px-5"
         onClick={() => window.open(adItem.url, "_blank")}
       >
         <div className="flex items-center justify-center">
           <img
             src={adItem.image}
             alt={adItem.name}
-            className="min-w-40 max-w-56 max-h-40 md:max-h-56 object-contain"
+            className="max-h-40 min-w-40 max-w-56 object-contain md:max-h-56"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-semibold text-center md:text-left line-clamp-2 md:line-clamp-3 lg:line-clamp-2">
+          <p className="line-clamp-2 text-center font-semibold md:line-clamp-3 md:text-left lg:line-clamp-2">
             {adItem.name}
           </p>
-          <div className="flex justify-center md:justify-start items-center gap-1 text-sm font-semibold text-gray-500">
+          <div className="flex items-center justify-center gap-1 text-sm font-semibold text-gray-500 md:justify-start">
             <div className="flex items-center">
               <AmazonStars rating={adItem.stars} />
             </div>
@@ -63,12 +63,12 @@ const AmazonAd: FC = () => {
               ({toCommaSeparatedString(adItem.reviews)} ratings)
             </span>
           </div>
-          <p className="mt-2 mb-3 line-clamp-4 text-gray-500 text-sm leading-5">
+          <p className="mb-3 mt-2 line-clamp-4 text-sm leading-5 text-gray-500">
             {adItem.desc}
           </p>
           <div className="flex justify-center md:justify-start">
             <a
-              className="text-sm bg-yellow-500 text-black px-3 py-2 rounded transition-colors duration-300 ease-in-out mb-1 whitespace-nowrap"
+              className="mb-1 whitespace-nowrap rounded bg-yellow-500 px-3 py-2 text-sm text-black transition-colors duration-300 ease-in-out"
               style={{ fontStretch: "condensed" }}
               href={adItem.url}
               target="_blank"

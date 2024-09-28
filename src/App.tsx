@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useMediaQuery } from "usehooks-ts"
 import DragDropArea from "./DragDropArea"
-import ImageViewer from "./ImageViewer"
 import FileInfo from "./FileInfo"
 import Footer from "./Footer"
-import { FileList } from "./types/FileList"
 import Header from "./Header"
-import { hashCode } from "./utils/hashCode"
-import { parseJsonObj } from "./utils/parseJsonObj"
-import { useTranslation } from "react-i18next"
+import ImageViewer from "./ImageViewer"
 import LongTouchDiv from "./LongTouchDiv"
 import PressTab from "./PressTab"
-import { toggleFullScreen } from "./utils/toggleFullscreen"
+import { FileList } from "./types/FileList"
+import { hashCode } from "./utils/hashCode"
 import { isMac } from "./utils/isMac"
-import { useMediaQuery } from "usehooks-ts"
+import { parseJsonObj } from "./utils/parseJsonObj"
+import { toggleFullScreen } from "./utils/toggleFullscreen"
 // import AmazonAd from "./AmazonAd"
 
 function App() {
@@ -214,7 +214,7 @@ function App() {
         ) : (
           <>
             <LongTouchDiv
-              className="fixed top-0 bottom-0 left-0 right-1/2 opacity-0"
+              className="fixed bottom-0 left-0 right-1/2 top-0 opacity-0"
               onMouseUp={goPrevious}
               onLongTouched={toggleInfoMode}
               style={{
@@ -226,7 +226,7 @@ function App() {
               }}
             />
             <LongTouchDiv
-              className="fixed top-0 bottom-0 left-1/2 right-0 opacity-0"
+              className="fixed bottom-0 left-1/2 right-0 top-0 opacity-0"
               onMouseUp={goNext}
               onLongTouched={toggleInfoMode}
               style={{

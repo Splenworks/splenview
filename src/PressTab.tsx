@@ -31,10 +31,10 @@ const PressTab: React.FC<PressTabProps> = ({ isTouchDevice }) => {
   }, [])
 
   return (
-    <div className="fixed top-10 left-0 right-0 flex justify-center">
+    <div className="fixed left-0 right-0 top-10 flex justify-center">
       <p
         className={twJoin(
-          "px-8 py-3 text-white font-semibold bg-neutral-900 transition-opacity duration-500 ease-in-out",
+          "bg-neutral-900 px-8 py-3 font-semibold text-white transition-opacity duration-500 ease-in-out",
           showMessage ? "opacity-75" : "opacity-0",
         )}
       >
