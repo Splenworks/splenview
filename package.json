@@ -1,7 +1,7 @@
 {
   "name": "splenview",
   "private": true,
-  "version": "0.1.15",
+  "version": "0.1.16",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3020",
@@ -13,10 +13,12 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.0.0-rc-ed15d500-20241110",
+    "react-dom": "19.0.0-rc-ed15d500-20241110",
     "react-i18next": "^14.1.0",
     "react-router-dom": "^6.26.2",
     "react-toggle-dark-mode": "^1.1.1",
@@ -27,8 +29,6 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@types/node": "^20.11.25",
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -48,6 +48,10 @@
     "vite-plugin-commit-hash": "^1.0.5",
     "vite-plugin-pwa": "^0.16.6",
     "vite-plugin-svgr": "^4.2.0"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "engines": {
     "node": "20.11.1"
