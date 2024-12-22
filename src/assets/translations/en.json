@@ -4,8 +4,8 @@
   },
   "dragDropArea": {
     "dropHere": "Drop here",
-    "mainMessage": "Drag and drop any <u>images</u> here.",
-    "subMessage": "You can drop <u>zip files</u> or <u>folders</u> too!",
+    "mainMessage": "Drag and drop any <u>image</u> files here!",
+    "subMessage": "You can drop <u>zip files</u> or <u>folders</u> too.",
     "noImageFilesFound": "No image files found.",
     "neverStoreYourData": "We never store your files in the server."
   },
