@@ -1,5 +1,3 @@
-# Project Documentation
-
 ## Overview
 
 Splenview is a simple image viewer that allows you to view images in a directory easily from the web browser. It is a project that I created from the frustration of not being able to find a program like Honeyview for Mac.
