@@ -27,10 +27,10 @@ const DarkModeSwitch = () => {
             "inner -ml-[100%] block w-[200%] transition-[margin] duration-300 ease-in",
             "both:float-left both:box-border both:block both:h-9 both:w-1/2 both:p-0 both:font-bold both:leading-9 both:text-white both:content-['']",
             "before:bg-neutral-600 before:pl-[10px] after:bg-neutral-200 after:pr-[10px] after:text-right",
-            "peer-checked:group-[]:ml-0",
+            "in-[.group]:peer-checked:ml-0",
           )}
         />
-        <span className="absolute bottom-0 right-10 top-0 m-[5px] block w-6 rounded-full bg-white transition-all duration-300 ease-in peer-checked:group-[]:right-0">
+        <span className="absolute top-0 right-10 bottom-0 m-[5px] block w-6 rounded-full bg-white transition-all duration-300 ease-in in-[.group]:peer-checked:right-0">
           <DarkModeSwitchIcon
             darkMode={darkMode}
             sunColor="black"
