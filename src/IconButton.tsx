@@ -18,7 +18,7 @@ const IconButton: React.FC<IconButtonProps> = ({
     <button
       id={id}
       className={twMerge(
-        "flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300 ease-in-out hover:bg-zinc-500 hover:bg-opacity-50",
+        "hover:bg-opacity-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 ease-in-out hover:bg-zinc-500",
         className,
       )}
       onClick={onClick}
