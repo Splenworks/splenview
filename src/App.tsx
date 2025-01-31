@@ -5,14 +5,15 @@ import DragDropArea from "./DragDropArea"
 import FileInfo from "./FileInfo"
 import Footer from "./Footer"
 import Header from "./Header"
+import { useFullScreen } from "./hooks/useFullScreen"
 import ImageViewer from "./ImageViewer"
 import LongTouchDiv from "./LongTouchDiv"
 import PressTab from "./PressTab"
+import { FullScreenProvider } from "./providers/FullScreenProvider"
 import { FileList } from "./types/FileList"
 import { hashCode } from "./utils/hashCode"
 import { isMac } from "./utils/isMac"
 import { parseJsonObj } from "./utils/parseJsonObj"
-import { toggleFullScreen } from "./utils/toggleFullscreen"
 // import AmazonAd from "./AmazonAd"
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
     currentIndex < fileList.length &&
     currentIndex >= 0
   const isTouchDevice = useMediaQuery("(pointer: coarse)")
+  const { toggleFullScreen } = useFullScreen()
 
   const currentIndexes = useMemo(
     () => parseJsonObj(localStorage.getItem("currentIndexes")),
@@ -200,7 +202,7 @@ function App() {
 
   if (readMode) {
     return (
-      <div id="imageViewer">
+      <FullScreenProvider>
         <ImageViewer file={fileList[currentIndex].file} />
         {infoMode ? (
           <FileInfo
@@ -243,7 +245,7 @@ function App() {
         {/*readyToExit &&
           currentIndex === fileList.length - 1 &&
           fileList.length > 10 && <AmazonAd />*/}
-      </div>
+      </FullScreenProvider>
     )
   }
 

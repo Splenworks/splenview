@@ -4,10 +4,10 @@ import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
 import ExitIcon from "./assets/icons/exit.svg?react"
 import FullscreenIcon from "./assets/icons/expand.svg?react"
 import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import { useFullScreen } from "./hooks/useFullScreen"
 import IconButton from "./IconButton"
 import Tooltip from "./Tooltip"
 import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
-import { toggleFullScreen } from "./utils/toggleFullscreen"
 
 interface FileInfoProps {
   fileName: string
@@ -26,9 +26,9 @@ const FileInfo: React.FC<FileInfoProps> = ({
   exit,
   toggleInfoMode,
 }) => {
-  const isFullScreen = document.fullscreenElement !== null
   const { t } = useTranslation()
   const [darkMode, setDarkMode] = useState(getDarkmode())
+  const { isFullScreen, toggleFullScreen } = useFullScreen()
 
   const fileSizeString = useCallback((size: number) => {
     if (size < 1024) return `${size} bytes`
