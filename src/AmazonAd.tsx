@@ -31,7 +31,7 @@ const AmazonAd: FC = () => {
   if (closed) return null
 
   return (
-    <div className="fixed left-1/2 top-1/2 min-w-80 max-w-xl -translate-x-1/2 -translate-y-1/2 transform shadow-2xl shadow-black">
+    <div className="fixed top-1/2 left-1/2 max-w-xl min-w-80 -translate-x-1/2 -translate-y-1/2 transform shadow-2xl shadow-black">
       <div className="relative flex h-8 items-center justify-center bg-pink-900 text-white">
         <span className="text-sm font-semibold">{t("others.ad")}</span>
         <CloseIcon
@@ -47,7 +47,7 @@ const AmazonAd: FC = () => {
           <img
             src={adItem.image}
             alt={adItem.name}
-            className="max-h-40 min-w-40 max-w-56 object-contain md:max-h-56"
+            className="max-h-40 max-w-56 min-w-40 object-contain md:max-h-56"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -63,12 +63,12 @@ const AmazonAd: FC = () => {
               ({toCommaSeparatedString(adItem.reviews)} ratings)
             </span>
           </div>
-          <p className="mb-3 mt-2 line-clamp-4 text-sm leading-5 text-gray-500">
+          <p className="mt-2 mb-3 line-clamp-4 text-sm leading-5 text-gray-500">
             {adItem.desc}
           </p>
           <div className="flex justify-center md:justify-start">
             <a
-              className="mb-1 whitespace-nowrap rounded bg-yellow-500 px-3 py-2 text-sm text-black transition-colors duration-300 ease-in-out"
+              className="mb-1 rounded-sm bg-yellow-500 px-3 py-2 text-sm whitespace-nowrap text-black transition-colors duration-300 ease-in-out"
               style={{ fontStretch: "condensed" }}
               href={adItem.url}
               target="_blank"
