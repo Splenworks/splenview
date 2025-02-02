@@ -9,7 +9,7 @@ const DarkModeSwitch = () => {
     <div className="relative inline-block w-[75px] text-left">
       <input
         type="checkbox"
-        className="peer hidden"
+        className="hidden"
         name="darkModeSwitch"
         id="darkModeSwitch"
         checked={darkMode}
