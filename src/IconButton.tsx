@@ -2,7 +2,7 @@ import React from "react"
 import { twMerge } from "tailwind-merge"
 
 interface IconButtonProps {
-  svgIcon: React.FunctionComponent
+  svgIcon: React.FunctionComponent<{ className?: string }>
   id?: string
   className?: string
   onClick?: () => void
@@ -23,7 +23,8 @@ const IconButton: React.FC<IconButtonProps> = ({
       )}
       onClick={onClick}
     >
-      {svgIcon({ className: "w-6 h-6 text-white" })}
+      {React.createElement(svgIcon, { className: "w-6 h-6 text-white" })}
+      {}
     </button>
   )
 }
