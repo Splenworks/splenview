@@ -155,6 +155,7 @@ function App() {
     goNext,
     goPrevious,
     initialize,
+    toggleFullScreen,
   ])
 
   useEffect(() => {
@@ -216,7 +217,7 @@ function App() {
         ) : (
           <>
             <LongTouchDiv
-              className="fixed bottom-0 left-0 right-1/2 top-0 opacity-0"
+              className="fixed top-0 right-1/2 bottom-0 left-0 opacity-0"
               onMouseUp={goPrevious}
               onLongTouched={toggleInfoMode}
               style={{
@@ -228,7 +229,7 @@ function App() {
               }}
             />
             <LongTouchDiv
-              className="fixed bottom-0 left-1/2 right-0 top-0 opacity-0"
+              className="fixed top-0 right-0 bottom-0 left-1/2 opacity-0"
               onMouseUp={goNext}
               onLongTouched={toggleInfoMode}
               style={{
