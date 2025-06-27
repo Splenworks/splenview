@@ -41,7 +41,7 @@ const AmazonAd: FC = () => {
       </div>
       <div
         className="flex cursor-pointer flex-col gap-3 bg-white px-8 py-5 md:flex-row md:gap-6 md:px-5"
-        onClick={() => window.open(adItem.url, "_blank")}
+        onClick={() => window.open(adItem.url, "_blank", "noopener,noreferrer")}
       >
         <div className="flex items-center justify-center">
           <img
