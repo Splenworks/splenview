@@ -23,6 +23,7 @@
     "close": "閉じる",
     "exit": "終了",
     "fullscreen": "フルスクリーン",
-    "exitFullscreen": "フルスクリーンを終了"
+    "exitFullscreen": "フルスクリーンを終了",
+    "toggleDarkMode": "ダークモード切替"
   }
 }

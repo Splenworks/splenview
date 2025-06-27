@@ -66,7 +66,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
           onMouseUp={(e) => e.stopPropagation()}
         >
           <div>
-            <Tooltip text="Toggle Darkmode" place="bottom">
+            <Tooltip text={t("others.toggleDarkMode")} place="bottom">
               <IconButton
                 svgIcon={() => (
                   <DarkModeSwitchIcon darkMode={darkMode} size={20} />

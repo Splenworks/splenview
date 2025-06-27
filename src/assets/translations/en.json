@@ -23,6 +23,7 @@
     "close": "Close",
     "exit": "Exit",
     "fullscreen": "Fullscreen",
-    "exitFullscreen": "Exit Fullscreen"
+    "exitFullscreen": "Exit Fullscreen",
+    "toggleDarkMode": "Toggle Dark Mode"
   }
 }
