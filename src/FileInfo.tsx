@@ -46,7 +46,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
       className="fixed bottom-0 left-0 right-0 top-0 text-white transition-opacity duration-300 ease-in-out"
       style={{
         background:
-          "linear-gradient(to bottom, rgba(0,0,0,75%), rgba(0,0,0,0%), rgba(0,0,0,0%), rgba(0,0,0,75%)",
+          "linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0%), rgba(0,0,0,0%), rgba(0,0,0,0.75)",
       }}
       onMouseUp={toggleInfoMode}
     >
