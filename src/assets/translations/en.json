@@ -7,7 +7,7 @@
     "mainMessage": "Drag and drop any <u>image</u> files here!",
     "subMessage": "You can drop <u>zip files</u> or <u>folders</u> too.",
     "noImageFilesFound": "No image files found.",
-    "neverStoreYourData": "We never store your files in the server."
+    "neverStoreYourData": "We never store your files on our server."
   },
   "footer": {
     "checkOutProduct": "Check out our other product <link />"
