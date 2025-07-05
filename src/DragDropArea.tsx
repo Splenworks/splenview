@@ -9,6 +9,7 @@ import {
   getImageFiles,
   getImageFilesFromDataTransfer,
 } from "./utils/getImageFiles"
+import { useDarkmode } from "./hooks/useDarkmode"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -20,6 +21,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const smallScreen = useMediaQuery("(max-width: 640px) or (max-height: 640px)")
+  const { darkMode } = useDarkmode()
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -83,7 +85,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         className={twJoin(
           "absolute inset-x-8 inset-y-0 flex cursor-pointer items-center justify-center rounded-xl border-4 border-dashed border-gray-300 transition-colors duration-300 ease-in-out md:inset-x-16",
           (dragging || loading) &&
-            "border-pink-900 bg-neutral-200 dark:border-pink-700 dark:bg-neutral-600",
+          "border-pink-900 bg-neutral-200 dark:border-pink-700 dark:bg-neutral-600",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -114,7 +116,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <PictureIcon className="mb-8 h-24 w-24" />
+                <PictureIcon className={twJoin("mb-8 h-24 w-24", darkMode ? "text-pink-800" : "text-pink-900")} />
                 <p className="mb-4 text-center text-xl font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
