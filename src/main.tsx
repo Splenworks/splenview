@@ -7,6 +7,7 @@ import App from "./App.tsx"
 import enTranslation from "./assets/translations/en.json"
 import jaTranslation from "./assets/translations/ja.json"
 import koTranslation from "./assets/translations/ko.json"
+import { DarkmodeProvider } from "./providers/DarkmodeProvider.tsx"
 import "./index.css"
 
 i18n
@@ -32,6 +33,8 @@ i18n
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <DarkmodeProvider>
+      <App />
+    </DarkmodeProvider>
   </StrictMode>,
 )

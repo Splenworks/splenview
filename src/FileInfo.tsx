@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
 import ExitIcon from "./assets/icons/exit.svg?react"
@@ -7,7 +7,7 @@ import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
 import { useFullScreen } from "./hooks/useFullScreen"
 import IconButton from "./IconButton"
 import Tooltip from "./Tooltip"
-import { getDarkmode, toggleDarkmode } from "./utils/darkmode"
+import { useDarkmode } from "./hooks/useDarkmode"
 
 interface FileInfoProps {
   fileName: string
@@ -27,7 +27,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   toggleInfoMode,
 }) => {
   const { t } = useTranslation()
-  const [darkMode, setDarkMode] = useState(getDarkmode())
+  const { darkMode, toggleDarkMode } = useDarkmode()
   const { isFullScreen, toggleFullScreen } = useFullScreen()
 
   const fileSizeString = useCallback((size: number) => {
@@ -72,8 +72,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                   <DarkModeSwitchIcon darkMode={darkMode} size={20} />
                 )}
                 onClick={() => {
-                  setDarkMode((darkMode) => !darkMode)
-                  toggleDarkmode()
+                  toggleDarkMode()
                 }}
               />
             </Tooltip>
