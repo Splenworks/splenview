@@ -20,7 +20,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
-  const smallScreen = useMediaQuery("(max-width: 640px) or (max-height: 640px)")
+  const smallScreen = useMediaQuery("(max-width: 640px), (max-height: 640px)")
   const { darkMode } = useDarkmode()
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
