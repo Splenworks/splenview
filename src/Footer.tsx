@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
                 <a
                   href={randomProduct.url}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="underline"
                 >
                   {randomProduct.name}
