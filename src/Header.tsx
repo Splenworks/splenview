@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ exited, goBack }) => {
             </div>
           )}
         </div>
-        <p className="text-lg font-semibold text-black dark:text-white">
+        <p className="text-xl font-semibold text-black dark:text-white">
           Splen<span className="text-pink-900 dark:text-pink-700">View</span>
         </p>
         <div className="flex flex-1 items-center justify-end">
