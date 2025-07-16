@@ -85,7 +85,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
         className={twJoin(
           "absolute inset-x-8 inset-y-0 flex cursor-pointer items-center justify-center rounded-xl border-4 border-dashed border-gray-300 transition-colors duration-300 ease-in-out md:inset-x-16",
           (dragging || loading) &&
-          "border-pink-900 bg-neutral-200 dark:border-pink-700 dark:bg-neutral-600",
+          "border-pink-800 bg-neutral-200 dark:border-pink-600 dark:bg-neutral-600",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -116,12 +116,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <PictureIcon className={twJoin("mb-8 h-24 w-24", darkMode ? "text-pink-800" : "text-pink-900")} />
+                <PictureIcon className={twJoin("mb-8 h-24 w-24", darkMode ? "text-pink-800" : "text-pink-600")} />
                 <p className="mb-4 text-center text-xl font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
                     components={{
-                      u: <span className="text-pink-900 dark:text-pink-700" />,
+                      u: <span className="text-pink-800 dark:text-pink-600" />,
                     }}
                   />
                 </p>
@@ -129,7 +129,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
                   <Trans
                     i18nKey="dragDropArea.subMessage"
                     components={{
-                      u: <span className="text-pink-900 dark:text-pink-700" />,
+                      u: <span className="text-pink-800 dark:text-pink-600" />,
                     }}
                   />
                 </p>
