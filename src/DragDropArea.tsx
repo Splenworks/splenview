@@ -2,14 +2,13 @@ import React, { useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { twJoin, twMerge } from "tailwind-merge"
 import { useMediaQuery } from "usehooks-ts"
-import PictureIcon from "./assets/icons/picture.svg?react"
+import PictureIcon from "./PictureIcon"
 import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
 import {
   getImageFiles,
   getImageFilesFromDataTransfer,
 } from "./utils/getImageFiles"
-import { useDarkmode } from "./hooks/useDarkmode"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -21,7 +20,6 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const smallScreen = useMediaQuery("(max-width: 640px), (max-height: 640px)")
-  const { darkMode } = useDarkmode()
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -116,7 +114,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
               </p>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                <PictureIcon className={twJoin("mb-8 h-24 w-24", darkMode ? "text-pink-800" : "text-pink-600")} />
+                <PictureIcon className="mb-8 h-24 w-24" />
                 <p className="mb-4 text-center text-xl font-bold">
                   <Trans
                     i18nKey="dragDropArea.mainMessage"
