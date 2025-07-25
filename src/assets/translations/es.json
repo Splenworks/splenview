@@ -1,0 +1,29 @@
+{
+  "header": {
+    "goBack": "Volver"
+  },
+  "dragDropArea": {
+    "dropHere": "Suelta aquí",
+    "mainMessage": "¡Arrastra y suelta cualquier archivo de <u>imagen</u> aquí!",
+    "subMessage": "También puedes soltar <u>archivos zip</u> o <u>carpetas</u>.",
+    "noImageFilesFound": "No se encontraron archivos de imagen.",
+    "neverStoreYourData": "Nunca almacenamos tus archivos en nuestro servidor."
+  },
+  "footer": {
+    "checkOutProduct": "Consulta nuestro otro producto <link />"
+  },
+  "messages": {
+    "reachedEnd": "Has llegado al final de la lista.",
+    "reachedBeginning": "Has llegado al inicio de la lista.",
+    "pressTab": "Presiona [tab] para mostrar más información.",
+    "longTouch": "Mantén presionado en cualquier parte durante 1 segundo para mostrar más información."
+  },
+  "others": {
+    "ad": "Anuncio",
+    "close": "Cerrar",
+    "exit": "Salir",
+    "fullscreen": "Pantalla completa",
+    "exitFullscreen": "Salir de pantalla completa",
+    "toggleDarkMode": "Cambiar modo oscuro"
+  }
+}

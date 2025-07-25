@@ -7,6 +7,8 @@ import App from "./App.tsx"
 import enTranslation from "./assets/translations/en.json"
 import jaTranslation from "./assets/translations/ja.json"
 import koTranslation from "./assets/translations/ko.json"
+import esTranslation from "./assets/translations/es.json"
+import cnTranslation from "./assets/translations/cn.json"
 import { DarkmodeProvider } from "./providers/DarkmodeProvider.tsx"
 import "./index.css"
 
@@ -23,6 +25,12 @@ i18n
       },
       ja: {
         translation: jaTranslation,
+      },
+      es: {
+        translation: esTranslation,
+      },
+      cn: {
+        translation: cnTranslation,
       },
     },
     fallbackLng: "en",
