@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
 import ExitIcon from "./assets/icons/exit.svg?react"
@@ -29,6 +29,10 @@ const FileInfo: React.FC<FileInfoProps> = ({
   const { t } = useTranslation()
   const { darkMode, toggleDarkMode } = useDarkmode()
   const { isFullScreen, toggleFullScreen } = useFullScreen()
+  const [dimensions, setDimensions] = useState<{
+    width: number
+    height: number
+  } | null>(null)
 
   const fileSizeString = useCallback((size: number) => {
     if (size < 1024) return `${size} bytes`
@@ -40,6 +44,37 @@ const FileInfo: React.FC<FileInfoProps> = ({
     }
     return `${parseFloat(size.toFixed(2))} ${units[unitIndex]}`
   }, [])
+
+  useEffect(() => {
+    let isActive = true
+    setDimensions(null)
+    const objectUrl = URL.createObjectURL(file)
+    const image = new Image()
+
+    image.onload = () => {
+      if (!isActive) return
+      setDimensions({
+        width: image.naturalWidth,
+        height: image.naturalHeight,
+      })
+      URL.revokeObjectURL(objectUrl)
+    }
+
+    image.onerror = () => {
+      if (!isActive) return
+      setDimensions(null)
+      URL.revokeObjectURL(objectUrl)
+    }
+
+    image.src = objectUrl
+
+    return () => {
+      isActive = false
+      image.onload = null
+      image.onerror = null
+      URL.revokeObjectURL(objectUrl)
+    }
+  }, [file])
 
   return (
     <div
@@ -59,6 +94,11 @@ const FileInfo: React.FC<FileInfoProps> = ({
           <span className="font-semibold">
             {new Date(file.lastModified).toLocaleString()}
           </span>
+          {dimensions && (
+            <span className="font-semibold">
+              {dimensions.width} x {dimensions.height}
+            </span>
+          )}
           <span className="font-semibold">{fileSizeString(file.size)}</span>
         </div>
         <div
