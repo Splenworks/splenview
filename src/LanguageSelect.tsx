@@ -21,10 +21,10 @@ const LanguageSelect = () => {
 
   return (
     <div className="mr-3 flex items-center gap-2">
-      <GlobeAltIcon className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
+      <GlobeAltIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-200" />
       <select
         id="language-menu"
-        className="rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm font-semibold text-black shadow-sm outline-none transition focus:border-pink-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+        className="h-9 rounded-md border border-neutral-300 bg-white px-3 text-sm font-semibold text-black outline-none transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
         value={selectedLanguage}
         onChange={(event) => {
           i18n.changeLanguage(event.target.value)
