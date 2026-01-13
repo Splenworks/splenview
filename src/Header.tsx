@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ exited, goBack }) => {
           <span className="bg-linear-to-r from-pink-700 to-pink-900 dark:from-pink-700 dark:to-pink-500 text-transparent bg-clip-text">Splen</span>
           View
         </p>
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex flex-1 items-center justify-end gap-2">
           <LanguageSelect />
           <DarkModeSwitch />
         </div>
