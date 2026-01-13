@@ -10,10 +10,10 @@ interface HeaderProps {
 
 const LANGUAGE_OPTIONS = [
   { value: "en", label: "English" },
-  { value: "ko", label: "Korean" },
-  { value: "ja", label: "Japanese" },
-  { value: "es", label: "Spanish" },
-  { value: "cn", label: "Chinese" },
+  { value: "ko", label: "한국어" },
+  { value: "ja", label: "日本語" },
+  { value: "es", label: "Español" },
+  { value: "cn", label: "中文" },
 ]
 
 const Header: React.FC<HeaderProps> = ({ exited, goBack }) => {
