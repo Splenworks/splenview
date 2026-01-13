@@ -1,4 +1,3 @@
-import { GlobeAltIcon } from "@heroicons/react/24/outline"
 import { useTranslation } from "react-i18next"
 
 const LANGUAGE_OPTIONS = [
@@ -21,10 +20,9 @@ const LanguageSelect = () => {
 
   return (
     <div className="mr-3 flex items-center gap-2">
-      <GlobeAltIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-200" />
       <select
         id="language-menu"
-        className="h-9 rounded-md border border-neutral-300 bg-white px-3 text-sm font-semibold text-black outline-none transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+        className="h-9 min-w-20 appearance-none text-center rounded-md border border-neutral-300 bg-white px-3 text-sm font-semibold text-black outline-none transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-white cursor-pointer"
         value={selectedLanguage}
         onChange={(event) => {
           i18n.changeLanguage(event.target.value)
