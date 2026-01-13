@@ -32,6 +32,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   const [dimensions, setDimensions] = useState<{
     width: number
     height: number
+    sourceFile: File
   } | null>(null)
 
   const fileSizeString = useCallback((size: number) => {
@@ -47,7 +48,6 @@ const FileInfo: React.FC<FileInfoProps> = ({
 
   useEffect(() => {
     let isActive = true
-    setDimensions(null)
     const objectUrl = URL.createObjectURL(file)
     const image = new Image()
 
@@ -56,6 +56,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
       setDimensions({
         width: image.naturalWidth,
         height: image.naturalHeight,
+        sourceFile: file,
       })
       URL.revokeObjectURL(objectUrl)
     }
@@ -94,7 +95,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
           <span className="font-semibold">
             {new Date(file.lastModified).toLocaleString()}
           </span>
-          {dimensions && (
+          {dimensions?.sourceFile === file && (
             <span className="font-semibold">
               {dimensions.width} x {dimensions.height}
             </span>
