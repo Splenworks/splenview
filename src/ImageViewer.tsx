@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo } from "react";
 
 interface ImageViewerProps {
   file: File
 }
 
 const ImageViewer: React.FC<ImageViewerProps> = ({ file }) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const imageUrl = useMemo(() => URL.createObjectURL(file), [file]);
 
   useEffect(() => {
-    const objectUrl = URL.createObjectURL(file);
-    setImageUrl(objectUrl);
-
     return () => {
-      URL.revokeObjectURL(objectUrl);
+      URL.revokeObjectURL(imageUrl);
     };
-  }, [file]);
+  }, [imageUrl]);
 
   if (!imageUrl) return null;
 
