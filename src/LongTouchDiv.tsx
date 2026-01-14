@@ -28,7 +28,7 @@ const LongTouchDiv: React.FC<
       {...props}
       onTouchStart={(e) => {
         handleTouchStart()
-        props.onTouchStart && props.onTouchStart(e)
+        props.onTouchStart?.(e)
       }}
     >
       {children}
