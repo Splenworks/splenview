@@ -14,7 +14,6 @@ import { FileList } from "./types/FileList"
 import { hashCode } from "./utils/hashCode"
 import { isMac } from "./utils/isMac"
 import { parseJsonObj } from "./utils/parseJsonObj"
-// import AmazonAd from "./AmazonAd"
 
 function App() {
   const [fileList, setFileList] = useState<FileList>([])
@@ -229,9 +228,6 @@ function App() {
           </>
         )}
         {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
-        {/*readyToExit &&
-          currentIndex === fileList.length - 1 &&
-          fileList.length > 10 && <AmazonAd />*/}
       </FullScreenProvider>
     )
   }
