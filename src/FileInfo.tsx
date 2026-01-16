@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import ExitFullscreenIcon from "./assets/icons/compress.svg?react"
 import ExitIcon from "./assets/icons/exit.svg?react"
 import FullscreenIcon from "./assets/icons/expand.svg?react"
 import DarkModeSwitchIcon from "./DarkModeSwitchIcon"
+import { useDarkmode } from "./hooks/useDarkmode"
 import { useFullScreen } from "./hooks/useFullScreen"
 import IconButton from "./IconButton"
 import Tooltip from "./Tooltip"
-import { useDarkmode } from "./hooks/useDarkmode"
+import { fileSizeString } from "./utils/number"
 
 interface FileInfoProps {
   fileName: string
@@ -34,17 +35,6 @@ const FileInfo: React.FC<FileInfoProps> = ({
     height: number
     sourceFile: File
   } | null>(null)
-
-  const fileSizeString = useCallback((size: number) => {
-    if (size < 1024) return `${size} bytes`
-    const units = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
-    let unitIndex = 0
-    while (size >= 1024) {
-      size /= 1024
-      unitIndex++
-    }
-    return `${parseFloat(size.toFixed(2))} ${units[unitIndex]}`
-  }, [])
 
   useEffect(() => {
     let isActive = true
