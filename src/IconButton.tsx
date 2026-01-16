@@ -24,7 +24,6 @@ const IconButton: React.FC<IconButtonProps> = ({
       onClick={onClick}
     >
       {React.createElement(svgIcon, { className: "w-6 h-6 text-white" })}
-      {}
     </button>
   )
 }
