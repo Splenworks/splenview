@@ -1,17 +1,26 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 interface ImageViewerProps {
   file: File
 }
 
 const ImageViewer: React.FC<ImageViewerProps> = ({ file }) => {
-  const imageUrl = useMemo(() => URL.createObjectURL(file), [file]);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!file) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setImageUrl(null);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    setImageUrl(objectUrl);
+
     return () => {
-      URL.revokeObjectURL(imageUrl);
+      URL.revokeObjectURL(objectUrl);
     };
-  }, [imageUrl]);
+  }, [file]);
 
   if (!imageUrl) return null;
 
