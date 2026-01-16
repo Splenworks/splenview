@@ -22,13 +22,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ file }) => {
     };
   }, [file]);
 
-  if (!imageUrl) return null;
+  if (!imageUrl || !file) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center">
       <img
         src={imageUrl}
-        alt={imageUrl}
+        alt={file.name}
         className="max-h-full min-h-full min-w-full max-w-full object-contain"
       />
     </div>
