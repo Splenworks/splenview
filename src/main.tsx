@@ -10,6 +10,7 @@ import koTranslation from "./assets/translations/ko.json"
 import esTranslation from "./assets/translations/es.json"
 import cnTranslation from "./assets/translations/cn.json"
 import { DarkmodeProvider } from "./providers/DarkmodeProvider.tsx"
+import { FullScreenProvider } from "./providers/FullScreenProvider.tsx"
 import "./index.css"
 
 i18n
@@ -42,7 +43,9 @@ i18n
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <DarkmodeProvider>
-      <App />
+      <FullScreenProvider>
+        <App />
+      </FullScreenProvider>
     </DarkmodeProvider>
   </StrictMode>,
 )

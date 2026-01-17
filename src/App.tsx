@@ -9,7 +9,6 @@ import { useFullScreen } from "./hooks/useFullScreen"
 import ImageViewer from "./ImageViewer"
 import LongTouchDiv from "./LongTouchDiv"
 import PressTab from "./PressTab"
-import { FullScreenProvider } from "./providers/FullScreenProvider"
 import { FileList } from "./types/FileList"
 import { hashCode } from "./utils/hashCode"
 import { isMac } from "./utils/isMac"
@@ -124,12 +123,9 @@ function App() {
           } else {
             exit()
           }
-        } else if (
-          readMode &&
-          (event.key === "f" ||
-            (isMac && event.metaKey && event.key === "Enter") ||
-            (!isMac && event.altKey && event.key === "Enter"))
-        ) {
+        } else if (event.key === "f" ||
+          (isMac && event.metaKey && event.key === "Enter") ||
+          (!isMac && event.altKey && event.key === "Enter")) {
           // F
           // Command + Enter (Mac)
           // Alt + Enter (Windows)
@@ -202,7 +198,7 @@ function App() {
 
   if (readMode) {
     return (
-      <FullScreenProvider>
+      <>
         <ImageViewer file={fileList[currentIndex].file} />
         {infoMode ? (
           <FileInfo
@@ -228,7 +224,7 @@ function App() {
           </>
         )}
         {showTabMessage && <PressTab isTouchDevice={isTouchDevice} />}
-      </FullScreenProvider>
+      </>
     )
   }
 
