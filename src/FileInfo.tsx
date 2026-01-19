@@ -78,11 +78,11 @@ const FileInfo: React.FC<FileInfoProps> = ({
     >
       <div className="absolute left-0 right-1 top-0 flex justify-between md:right-4">
         <div
-          className="flex flex-col gap-1 pl-4 pt-2 md:pl-6 md:pt-4"
+          className="flex flex-col pl-4 pt-2 md:pl-6 md:pt-4"
           onMouseUp={(e) => e.stopPropagation()}
         >
           <span className="text-xl font-semibold">{fileName}</span>
-          <span className="font-semibold">
+          <span className="font-semibold mt-2">
             {new Date(file.lastModified).toLocaleString()}
           </span>
           {dimensions?.sourceFile === file && (
