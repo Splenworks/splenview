@@ -34,7 +34,7 @@ const PressTab: React.FC<PressTabProps> = ({ isTouchDevice }) => {
     <div className="fixed left-0 right-0 top-10 flex justify-center">
       <p
         className={twJoin(
-          "bg-neutral-900 px-8 py-3 font-semibold text-white transition-opacity duration-500 ease-in-out",
+          "bg-neutral-900 px-8 py-3 font-semibold text-white transition-opacity duration-500 ease-in-out border border-white",
           showMessage ? "opacity-75" : "opacity-0",
         )}
       >
