@@ -194,6 +194,30 @@ function App() {
     }
   }, [readMode])
 
+  useEffect(() => {
+    if (!readMode) return
+    let lastWheelTime = 0
+    const handleWheel = (event: WheelEvent) => {
+      const deltaX = event.deltaX
+      const deltaY = event.deltaY
+      if (Math.abs(deltaX) < 30 && Math.abs(deltaY) < 30) return
+      const now = Date.now()
+      if (now - lastWheelTime < 200) return
+      lastWheelTime = now
+      const dominantDelta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY
+      if (dominantDelta > 0) {
+        goNext()
+      } else if (dominantDelta < 0) {
+        goPrevious()
+      }
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: true })
+    return () => {
+      window.removeEventListener("wheel", handleWheel)
+    }
+  }, [readMode, goNext, goPrevious])
+
   const toggleInfoMode = useCallback(() => setInfoMode((prev) => !prev), [])
 
   if (readMode) {
