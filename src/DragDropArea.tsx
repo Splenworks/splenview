@@ -5,10 +5,7 @@ import { useMediaQuery } from "usehooks-ts"
 import PictureIcon from "./PictureIcon"
 import Spinner from "./Spinner"
 import { FileList } from "./types/FileList"
-import {
-  getImageFiles,
-  getImageFilesFromDataTransfer,
-} from "./utils/getImageFiles"
+import { getImageFiles, getImageFilesFromDataTransfer } from "./utils/getImageFiles"
 
 interface DragDropAreaProps {
   setFileList: React.Dispatch<React.SetStateAction<FileList>>
@@ -43,8 +40,7 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
     const items = e.dataTransfer.items
     try {
       const imageFileList = await getImageFilesFromDataTransfer(items)
-      if (imageFileList.length === 0)
-        throw new Error(t("dragDropArea.noImageFilesFound"))
+      if (imageFileList.length === 0) throw new Error(t("dragDropArea.noImageFilesFound"))
       setFileList(imageFileList)
     } catch (error) {
       alert(error instanceof Error ? error.message : error)
@@ -59,15 +55,12 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
     fileInputRef.current?.click()
   }
 
-  const handleFileInputChange = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
     setLoading(true)
     try {
       const imageFileList = await getImageFiles(files)
-      if (imageFileList.length === 0)
-        throw new Error(t("dragDropArea.noImageFilesFound"))
+      if (imageFileList.length === 0) throw new Error(t("dragDropArea.noImageFilesFound"))
       setFileList(imageFileList)
     } catch (error) {
       alert(error instanceof Error ? error.message : error)
@@ -78,14 +71,15 @@ const DragDropArea: React.FC<DragDropAreaProps> = ({ setFileList }) => {
   }
 
   return (
-    <div className="fixed bottom-16 left-0 right-0 top-16 bg-white dark:bg-neutral-900">
+    <div className="fixed top-16 right-0 bottom-16 left-0 bg-white dark:bg-neutral-900">
       <div
         className={twJoin(
-          "absolute inset-x-8 inset-y-0 flex cursor-pointer items-center justify-center rounded-xl border-4 ff:border-3 border-dashed border-gray-300 transition-colors duration-300 ease-in-out md:inset-x-16",
-          "hover:bg-linear-to-r hover:from-transparent hover:to-transparent hover:bg-size-[200%_100%] hover:animate-shimmer",
-          "hover:via-pink-200/50 dark:hover:via-pink-800/20",
+          "ff:border-3 absolute inset-x-8 inset-y-0 flex cursor-pointer items-center justify-center rounded-xl border-4 border-dashed border-gray-300 transition-colors duration-300 ease-in-out md:inset-x-16",
+          "hover:animate-shimmer hover:bg-linear-to-r hover:bg-size-[200%_100%]",
+          "hover:from-pink-200/0 hover:via-pink-200/50 hover:to-pink-200/0",
+          "dark:hover:from-pink-950/0 dark:hover:via-pink-950/30 dark:hover:to-pink-950/0",
           (dragging || loading) &&
-          "border-pink-800 bg-gray-300 dark:border-pink-600 dark:bg-neutral-600",
+            "border-pink-800 bg-gray-300 dark:border-pink-600 dark:bg-neutral-600",
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
